@@ -2,8 +2,10 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span>Card name</span>
-        <el-button class="button" text>Operation button</el-button>
+        <span>{{ tableItem.name }}</span>
+        <el-link :href="`/room/${tableItem.id}`" target="_blank" type="success">
+          Go
+        </el-link>
       </div>
     </template>
     <div v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</div>
@@ -18,8 +20,20 @@ import { Options, Vue } from "vue-class-component";
   computed: {
     name: "hello world",
   },
+  props: {
+    tableItem: {
+      type: Object,
+      default: () => ({
+        id: "",
+        name: "",
+        user: [],
+      }),
+    },
+  },
 })
-export default class Room extends Vue {}
+export default class Room extends Vue {
+  tableItem: any;
+}
 </script>
 
 <style scoped>
