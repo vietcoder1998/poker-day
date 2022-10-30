@@ -8,7 +8,11 @@
         </el-link>
       </div>
     </template>
-    <div v-for="o in 4" :key="o" class="text item">{{ "List item " + o }}</div>
+    <div style="text-align: left">
+      <div>8 people</div>
+      <div>8/11/2022</div>
+      <div>Description</div>
+    </div>
   </el-card>
 </template>
 

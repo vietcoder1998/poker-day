@@ -41,9 +41,9 @@ import AddRoom from "@/ui/AddRoom.vue";
     name: "hello world",
     tableData() {
       return [
-        { date: "2016-05-03", id: "1", name: "California" },
-        { date: "2016-05-03", id: "2", name: "California" },
-        { date: "2016-05-03", id: "3", name: "California" },
+        { date: "2016-05-03", id: "1", name: "Room1" },
+        { date: "2016-05-03", id: "2", name: "Room2" },
+        { date: "2016-05-03", id: "3", name: "Room3" },
       ];
     },
   },

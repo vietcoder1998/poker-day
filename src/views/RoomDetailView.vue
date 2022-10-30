@@ -1,6 +1,6 @@
 <template>
   <dynamic-layout>
-    <el-table :data="tableData" style="width: 100%" max-height="250">
+    <el-table :data="tableData" max-height="250">
       <el-table-column prop="name" label="Name" width="200" />
       <el-table-column prop="call" label="Call" width="200">
         <el-input-number :min="1" :max="10" />
@@ -9,7 +9,7 @@
         <el-input-number :min="1" :max="10" />
       </el-table-column>
       <el-table-column prop="total" label="Total" width="200" />
-      <el-table-column props="id" label="Operator" width="120">
+      <el-table-column :fixed="'right'" label="Operator" width="120">
         <template>
           <el-button size="small">Edit</el-button>
           <el-button size="small" type="danger"> Delete </el-button>
