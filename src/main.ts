@@ -5,6 +5,8 @@ import ElementPlus from "element-plus";
 import store from "./store";
 import "element-plus/dist/index.css";
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+// Import one of the available themes
+//import 'vue-toast-notification/dist/theme-default.css';
 
 const app = createApp(App);
 

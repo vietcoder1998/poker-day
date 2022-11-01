@@ -7,6 +7,18 @@
   </nav>
   <router-view />
 </template>
+<script>
+import axios from "axios";
+import roomApi from "@/configs/roomApi.ts";
+
+export default {
+  created() {
+    axios.get(roomApi.getRoomAll).then((data) => {
+      console.log(data);
+    });
+  },
+};
+</script>
 
 <style>
 #app {
