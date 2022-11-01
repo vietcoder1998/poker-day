@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/add-round",
-    name: "add-room",
+    name: "add-round",
     component: AddRound,
   },
   {

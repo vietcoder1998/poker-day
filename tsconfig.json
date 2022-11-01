@@ -36,15 +36,9 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "tests/**/*.ts",
-<<<<<<< HEAD
-    "tests/**/*.tsx"
-, "src/mixins/index.js"  ],
-=======
     "tests/**/*.tsx",
     "src/services/RoomService.js",
-    "src/services/RoomService.js"
   ],
->>>>>>> 8f0b4ae (update)
   "exclude": [
     "node_modules"
   ]

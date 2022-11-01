@@ -41,7 +41,7 @@ import type { TabsPaneContext } from "element-plus";
     },
     handleTabClick(tab: TabsPaneContext, event: Event) {
       this.$router.push({ query: { roundId: tab.props.name } });
-      this.roundId = this.tab.props.name;
+      this.roundId = tab.props.name;
     },
   },
   created() {

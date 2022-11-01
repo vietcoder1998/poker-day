@@ -70,11 +70,7 @@ import roomApi from "@/configs/roomApi";
   },
   data() {
     return {
-      ruleForm: {
-        name: "",
-        description: "",
-        date: "",
-      },
+      ruleForm: { name: "", description: "", date: "", month: "" },
     };
   },
 })

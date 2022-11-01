@@ -39,7 +39,6 @@ import Room from "@/ui/Room.vue";
 import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
-
 @Options({
   components: {
     DynamicLayout,
@@ -64,9 +63,7 @@ import roomApi from "@/configs/roomApi";
     },
   },
   created() {
-    axios.get("http://localhost:8090/room").then((res) => {
-      this.rooms = res.data;
-    });
+    this.getRooms();
   },
   name: "hello world",
   computed: {
