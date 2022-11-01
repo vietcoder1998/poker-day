@@ -19,6 +19,8 @@
         :span="6"
         :sm="24"
         :xs="24"
+        :lg="6"
+        :md="8"
         v-for="tableItem in tableData"
         :key="tableItem?.id"
         :body-style="{ padding: '10px' }"
@@ -54,22 +56,10 @@ import roomApi from "@/configs/roomApi";
     this.getRooms();
   },
   methods: {
-    deleteRound() {
-      axios
-        .delete(roundApi.deleteRound(this.roundId))
-        .then((res) => {
-          alert(JSON.stringify(res.data));
-          this.$router.go(0);
-        })
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
-    },
     getRooms() {
       axios
         .get(roomApi.getRoomAll)
         .then((res) => {
-          alert(JSON.stringify(res.data));
           this.rooms = res.data;
         })
         .catch((err) => {

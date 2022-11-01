@@ -42,6 +42,8 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import axios from "axios";
+import roomApi from "@/configs/roomApi";
 
 @Options({
   components: {
@@ -55,7 +57,15 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       form.reset();
     },
     submitForm(form: any) {
-      console.log(form);
+      axios
+        .post(roomApi.addRoom, this.ruleForm)
+        .then((res) => {
+          this.rooms = res.data;
+          this.$router.back();
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
     },
   },
   data() {

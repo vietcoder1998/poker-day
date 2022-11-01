@@ -6,9 +6,6 @@
     v-model="roundId"
     @tab-click="handleTabClick"
   >
-    <el-tab-pane label="ADD" name="add">
-      <AddRound></AddRound>
-    </el-tab-pane>
     <el-tab-pane
       v-for="(round, index) in rounds"
       :key="['round', index].join('')"

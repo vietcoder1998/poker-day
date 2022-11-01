@@ -7,10 +7,10 @@
     class="demo-ruleForm"
   >
     <el-header>Add Round</el-header>
-    <el-form-item label="Name" prop="pass">
+    <el-form-item label="Name" prop="name">
       <el-input v-model="ruleForm.name" type="text" autocomplete="off" />
     </el-form-item>
-    <el-form-item label="Description" prop="checkPass">
+    <el-form-item label="Description" prop="description">
       <el-input
         v-model="ruleForm.description"
         type="textarea"
@@ -38,8 +38,7 @@ import { Vue, Options } from "vue-class-component";
         .post(roundApi.addRound, this.ruleForm)
         .then((data) => {
           alert(JSON.stringify(data));
-          this.$emit("getRound");
-          this.$router.go(0);
+          this.$router.go(-1);
         })
         .catch((err) => alert(err))
         .finally(() => {
