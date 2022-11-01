@@ -27,14 +27,13 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import Room from "@/ui/Room.vue";
 import axios from "axios";
 import roomApi from "@/configs/roomApi";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
   components: {
-    Room,
+    CenterLayout,
   },
   created() {
     this.getRoomDetail();

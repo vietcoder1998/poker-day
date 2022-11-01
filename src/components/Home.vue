@@ -46,7 +46,7 @@ import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
 import roomApi from "@/configs/roomApi";
-import Room from "@/ui/Room.vue";
+import Room from "./ui/Room.vue";
 
 @Options({
   name: "Home",
