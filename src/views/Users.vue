@@ -25,7 +25,6 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     CenterLayout,
   },
   computed: {
-    name: "Hell world",
     tableData() {
       return [
         {

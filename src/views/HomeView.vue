@@ -40,6 +40,7 @@ import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
 @Options({
+  name: "Home",
   components: {
     DynamicLayout,
     Room,
@@ -65,7 +66,6 @@ import roomApi from "@/configs/roomApi";
   created() {
     this.getRooms();
   },
-  name: "hello world",
   computed: {
     tableData() {
       return this.rooms;

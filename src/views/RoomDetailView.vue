@@ -48,7 +48,6 @@ import axios from "axios";
     };
   },
   computed: {
-    name: "Hell world",
     tableData() {
       return this.games;
     },

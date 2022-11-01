@@ -16,9 +16,6 @@ import AddRound from "@/components/AddRound.vue";
     CenterLayout,
     AddRound,
   },
-  computed: {
-    name: "hello world",
-  },
   methods: {
     resetForm(form: any) {
       form.reset();
