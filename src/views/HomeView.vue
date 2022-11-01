@@ -7,13 +7,6 @@
           <el-icon><Plus /></el-icon>
         </el-button>
       </el-link>
-      <el-button
-        :type="'danger'"
-        :style="{ margin: '10px' }"
-        @click="deleteRound"
-      >
-        <el-icon><Minus /></el-icon>
-      </el-button>
     </el-row>
     <el-row class="home">
       <el-col

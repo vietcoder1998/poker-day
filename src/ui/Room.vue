@@ -35,9 +35,6 @@ import roomApi from "@/configs/roomApi";
 
 @Options({
   name: "Room",
-  computed: {
-    name: "hello world",
-  },
   props: {
     tableItem: {
       type: Object,

@@ -13,9 +13,6 @@ import { Options, Vue } from "vue-class-component";
 
 @Options({
   name: "DynamicLayout",
-  computed: {
-    name: "hello world",
-  },
 })
 export default class DynamicLayout extends Vue {}
 </script>
