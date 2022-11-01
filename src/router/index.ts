@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RoomDetailView from "../views/RoomDetailView.vue";
 import AddRoom from "../views/AddRoom.vue";
+import AddRound from "../views/AddRound.vue";
 import Users from "../views/Users.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -19,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/add-room",
     name: "add-room",
     component: AddRoom,
+  },
+  {
+    path: "/add-round",
+    name: "add-room",
+    component: AddRound,
   },
   {
     path: "/users",

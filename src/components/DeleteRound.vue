@@ -18,7 +18,7 @@ import { Vue, Options } from "vue-class-component";
         .then((data) => {
           alert(JSON.stringify(data));
           this.$emit("getRound");
-          this.$router.go(0);
+          this.$router.go(-1);
         })
         .catch((err) => alert(err))
         .finally(() => {
