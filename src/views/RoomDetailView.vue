@@ -1,20 +1,26 @@
 <template>
   <dynamic-layout>
-    <el-table :data="tableData" max-height="250">
-      <el-table-column prop="name" label="Name" width="200" />
-      <el-table-column prop="call" label="Call" width="200">
-        <el-input-number :min="1" :max="10" />
-      </el-table-column>
-      <el-table-column prop="all" label="All" width="200">
-        <el-input-number :min="1" :max="10" />
-      </el-table-column>
-      <el-table-column prop="total" label="Total" width="200" />
-      <el-table-column :fixed="'right'" label="Operator" width="120">
-        <template>
-          <el-button size="small">Edit</el-button>
-          <el-button size="small" type="danger"> Delete </el-button>
+    <el-table :data="tableData" max-height="250" width="100%">
+      <el-table-column prop="name" label="Name" width="250" />
+      <el-table-column prop="callNumber" label="Call" width="250">
+        <template #default="scope">
+          <el-input-number
+            v-model="scope.row.callNumber"
+            :min="0"
+            :max="100000"
+          />
         </template>
       </el-table-column>
+      <el-table-column prop="inventory" label="All" width="250">
+        <template #default="scope">
+          <el-input-number
+            v-model="scope.row.inventory"
+            :min="0"
+            :max="100000"
+          />
+        </template>
+      </el-table-column>
+      <el-table-column prop="total" label="Total" width="250" />
     </el-table>
   </dynamic-layout>
 </template>
@@ -23,31 +29,28 @@
 import { Options, Vue } from "vue-class-component";
 import DynamicLayout from "@/layout/DynamicLayout.vue";
 import Room from "@/ui/Room.vue";
+import axios from "axios";
 
 @Options({
   components: {
     DynamicLayout,
     Room,
   },
+  created() {
+    const { roomId } = this.$route.params;
+    axios.get(`http://localhost:8090/room/${roomId}/games`).then((res) => {
+      this.games = res.data;
+    });
+  },
+  data() {
+    return {
+      games: [],
+    };
+  },
   computed: {
     name: "Hell world",
     tableData() {
-      return [
-        {
-          id: "2016-05-03",
-          name: "Tom",
-          call: 1000,
-          all: 3200,
-          total: 1000,
-        },
-        {
-          id: "2016-05-03",
-          name: "Tom",
-          call: 1000,
-          all: 3200,
-          total: -100,
-        },
-      ];
+      return this.games;
     },
   },
   methods: {

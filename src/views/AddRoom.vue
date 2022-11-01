@@ -41,6 +41,7 @@ import AddRoom from "@/components/AddRoom.vue";
         name: "",
         description: "",
         date: "",
+        month: "",
       },
     };
   },
