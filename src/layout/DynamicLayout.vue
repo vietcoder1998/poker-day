@@ -1,33 +1,23 @@
 <template>
-  <el-row>
-    <el-row>
-      <el-col span="4">
-        <el-tabs
-          tab-position="left"
-          style="width: 100%"
-          class="demo-tabs"
-          v-model="roundId"
-          @tab-click="handleTabClick"
-        >
-          <el-tab-pane label="ADD" name="add">
-            <el-col span="20">
-              <AddRound></AddRound>
-            </el-col>
-          </el-tab-pane>
-          <el-tab-pane
-            v-for="(round, index) in rounds"
-            :key="['round', index].join('')"
-            :label="round.name"
-            :name="round.id"
-          >
-            <el-col span="20">
-              <slot :roundId="round.id"></slot>
-            </el-col>
-          </el-tab-pane>
-        </el-tabs>
-      </el-col>
-    </el-row>
-  </el-row>
+  <el-tabs
+    tab-position="left"
+    style="width: 100%"
+    class="demo-tabs"
+    v-model="roundId"
+    @tab-click="handleTabClick"
+  >
+    <el-tab-pane label="ADD" name="add">
+      <AddRound></AddRound>
+    </el-tab-pane>
+    <el-tab-pane
+      v-for="(round, index) in rounds"
+      :key="['round', index].join('')"
+      :label="round.name"
+      :name="round.id"
+    >
+      <slot :roundId="round.id"></slot>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script lang="ts">

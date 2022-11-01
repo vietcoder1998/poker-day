@@ -51,16 +51,16 @@ import roomApi from "@/configs/roomApi";
   methods: {
     deleteRoom(id: string) {
       axios
-        .delete(roomApi.deleteRoom(id))
+        .delete(roomApi.deleteRoom(this.tableItem.id))
         .then((res) => {
           if (res.data) {
-            JSON.stringify(res.data);
+            alert(JSON.stringify(res.data));
+            this.$router.go(0);
           }
         })
         .catch((err) => {
-          JSON.stringify(err);
-        })
-        .finally(() => this.$router.go(0));
+          alert(JSON.stringify(err));
+        });
     },
   },
 })

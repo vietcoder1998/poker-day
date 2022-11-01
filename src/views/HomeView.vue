@@ -16,12 +16,14 @@
     </el-row>
     <el-row class="home">
       <el-col
-        :span="12"
-        v-for="o in tableData"
-        :key="o"
+        :span="6"
+        :sm="24"
+        :xs="24"
+        v-for="tableItem in tableData"
+        :key="tableItem?.id"
         :body-style="{ padding: '10px' }"
       >
-        <room :tableItem="o"></room>
+        <room :tableItem="tableItem"></room>
       </el-col>
     </el-row>
   </dynamic-layout>
@@ -34,6 +36,7 @@ import Room from "@/ui/Room.vue";
 import AddRoom from "@/ui/AddRoom.vue";
 import axios from "axios";
 import roundApi from "@/configs/roundApi";
+import roomApi from "@/configs/roomApi";
 
 @Options({
   components: {
@@ -47,6 +50,9 @@ import roundApi from "@/configs/roundApi";
       default: "",
     },
   },
+  created() {
+    this.getRooms();
+  },
   methods: {
     deleteRound() {
       axios
@@ -59,20 +65,34 @@ import roundApi from "@/configs/roundApi";
           alert(JSON.stringify(err));
         });
     },
+    getRooms() {
+      axios
+        .get(roomApi.getRoomAll)
+        .then((res) => {
+          alert(JSON.stringify(res.data));
+          this.rooms = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
   },
   computed: {
     name: "hello world",
     tableData() {
-      return [
-        { date: "2016-05-03", id: "1", name: "Room1" },
-        { date: "2016-05-03", id: "2", name: "Room2" },
-        { date: "2016-05-03", id: "3", name: "Room3" },
-      ];
+      return this.rooms;
     },
+  },
+  data() {
+    return {
+      rooms: [],
+    };
   },
 })
 export default class HomeView extends Vue {
-  tableData: Array<{ date: string; name: string; state: string }> | undefined;
+  tableData:
+    | Array<{ date: string; name: string; state: string; id: string }>
+    | undefined;
   deleteRound: any;
 }
 </script>
