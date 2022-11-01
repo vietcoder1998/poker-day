@@ -1,20 +1,21 @@
 <template>
-  <fragment>
-    <el-row class="home">
-      <el-col
-        :span="6"
-        :sm="12"
-        :xs="24"
-        :lg="6"
-        :md="8"
-        v-for="room in rooms"
-        :key="room?.id"
-        :body-style="{ padding: '10px' }"
-      >
-        <Room :tableItem="room"></Room>
-      </el-col>
-    </el-row>
-  </fragment>
+  <el-table :data="tableData" style="width: 100%" max-height="250">
+    <el-table-column prop="name" label="Name" width="250" />
+    <el-table-column prop="name" label="description" width="250" />
+    <el-table-column fixed="right" label="Operation" width="120">
+      <template #default>
+        <el-button link type="primary" size="small">Edit</el-button>
+        <el-popconfirm
+          title="Are you sure to delete this?"
+          :style="{ width: 250 }"
+        >
+          <template #reference>
+            <el-button link type="danger">Delete</el-button>
+          </template>
+        </el-popconfirm>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script lang="ts">
@@ -22,13 +23,11 @@ import axios from "axios";
 import roundApi from "@/configs/roundApi";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
-import type { TabsPaneContext } from "element-plus";
-import roomApi from "@/configs/roomApi";
 import Room from "./ui/Room.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
-  name: "Home",
+  name: "Round",
   computed: {},
   components: {
     AddRound,
@@ -36,16 +35,11 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     CenterLayout,
   },
   methods: {
-    handleTabClick(tab: TabsPaneContext, event: Event) {
-      this.$router.push({ query: { roundId: tab.props.name } });
-      this.roundId = tab.props.name;
-      this.getRooms();
-    },
     getRooms() {
       axios
-        .get(roomApi.getRoomAll)
+        .get(roundApi.getRoundAll)
         .then((res) => {
-          this.rooms = res.data;
+          this.tableData = res.data;
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -57,9 +51,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   },
   data() {
     return {
-      rounds: [],
-      roundId: "add",
-      rooms: [],
+      tableData: [],
     };
   },
 })
@@ -68,7 +60,7 @@ export default class Home extends Vue {
   handleTabClick: any;
   roundId: any;
   tableData:
-    | Array<{ date: string; name: string; state: string; id: string }>
+    | Array<{ description: string; name: string; id: string }>
     | undefined;
   deleteRound: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];

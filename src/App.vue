@@ -1,6 +1,7 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
+    <router-link to="/round">Round</router-link> |
     <router-link to="/add-round">AddRound</router-link> |
     <router-link to="/add-room">Add Room</router-link> |
     <router-link to="/users">Users</router-link> |
