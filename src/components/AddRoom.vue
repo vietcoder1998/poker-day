@@ -17,7 +17,19 @@
       />
     </el-form-item>
     <el-form-item label="Month" prop="month">
-      <el-input v-model.number="ruleForm.month" type="text" />
+      <el-select
+        v-model="ruleForm.roundId"
+        class="m-2"
+        placeholder="Select"
+        size="large"
+      >
+        <el-option
+          v-for="item in rounds"
+          :key="item.id"
+          :label="item.name"
+          :value="item.id"
+        />
+      </el-select>
     </el-form-item>
     <el-form-item label="Date" prop="date">
       <el-date-picker
@@ -41,6 +53,7 @@
 import { Options, Vue } from "vue-class-component";
 import axios from "axios";
 import roomApi from "@/configs/roomApi";
+import roundApi from "@/configs/roundApi";
 
 @Options({
   name: "AddRoom",
@@ -53,15 +66,31 @@ import roomApi from "@/configs/roomApi";
         .post(roomApi.addRoom, this.ruleForm)
         .then((res) => {
           this.rooms = res.data;
+          alert(JSON.stringify(res.data));
+          this.$router.go(-1);
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+    getRoundList() {
+      axios
+        .get(roundApi.getRoundAll)
+        .then((res) => {
+          this.rounds = res.data;
         })
         .catch((err) => {
           alert(JSON.stringify(err));
         });
     },
   },
+  created() {
+    this.getRoundList();
+  },
   data() {
     return {
-      ruleForm: { name: "", description: "", date: "", month: "" },
+      ruleForm: { name: "", description: "", date: "", month: "", roundId: "" },
+      rounds: [],
     };
   },
 })
@@ -71,5 +100,6 @@ export default class AddRoom extends Vue {
   resetForm: any;
   submitForm: any;
   ruleFormRef: any;
+  rounds: Array<{ id: string; name: string }> = [];
 }
 </script>

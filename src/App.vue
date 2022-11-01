@@ -5,6 +5,7 @@
     <router-link to="/add-room">Add Room</router-link> |
     <router-link to="/users">Users</router-link> |
     <router-link to="/about">About</router-link>
+    <el-page-header @back="onBack"></el-page-header>
   </nav>
   <router-view />
 </template>
@@ -13,10 +14,10 @@ import axios from "axios";
 import roomApi from "@/configs/roomApi.ts";
 
 export default {
-  created() {
-    axios.get(roomApi.getRoomAll).then((data) => {
-      console.log(data);
-    });
+  methods: {
+    onBack() {
+      this.$router.go(-1);
+    },
   },
 };
 </script>

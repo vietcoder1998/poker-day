@@ -1,5 +1,5 @@
 <template>
-  <dynamic-layout>
+  <center-layout>
     <el-table :data="tableData" max-height="250" width="100%">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="callNumber" label="Call" width="250">
@@ -22,25 +22,22 @@
       </el-table-column>
       <el-table-column prop="total" label="Total" width="250" />
     </el-table>
-  </dynamic-layout>
+  </center-layout>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import DynamicLayout from "@/layout/DynamicLayout.vue";
 import Room from "@/ui/Room.vue";
 import axios from "axios";
+import roomApi from "@/configs/roomApi";
+import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
   components: {
-    DynamicLayout,
     Room,
   },
   created() {
-    const { roomId } = this.$route.params;
-    axios.get(`http://localhost:8090/room/${roomId}/games`).then((res) => {
-      this.games = res.data;
-    });
+    this.getRoomDetail();
   },
   data() {
     return {
@@ -53,6 +50,18 @@ import axios from "axios";
     },
   },
   methods: {
+    getRoomDetail() {
+      const { roomId } = this.$route.params;
+
+      axios
+        .get(roomApi.getRoomDetail(roomId))
+        .then((res) => {
+          this.games = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
     deleteRow() {
       return;
     },
