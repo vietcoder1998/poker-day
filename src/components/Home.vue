@@ -31,7 +31,7 @@
             :key="room?.id"
             :body-style="{ padding: '10px' }"
           >
-            <room :tableItem="room"></room>
+            <Room :tableItem="room"></Room>
           </el-col>
         </el-row>
       </el-tab-pane>
@@ -46,12 +46,14 @@ import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
 import roomApi from "@/configs/roomApi";
+import Room from "@/ui/Room.vue";
 
 @Options({
   name: "Home",
   computed: {},
   components: {
     AddRound,
+    Room,
   },
   methods: {
     getRound() {
