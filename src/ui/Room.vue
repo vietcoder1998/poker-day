@@ -3,6 +3,18 @@
     <template #header>
       <div class="card-header">
         <span>{{ tableItem.name }}</span>
+        <el-popconfirm
+          confirm-button-text="OK"
+          cancel-button-text="No, Thanks"
+          icon-color="#626AEF"
+          title="Are you sure to delete this?"
+          width="200px"
+          @confirm="() => deleteRoom(tableItem.id)"
+        >
+          <template #reference>
+            <el-link type="danger"> Delete </el-link>
+          </template>
+        </el-popconfirm>
         <el-link :href="`/room/${tableItem.id}`" target="_blank" type="success">
           Go
         </el-link>
@@ -18,6 +30,8 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
+import axios from "axios";
+import roomApi from "@/configs/roomApi";
 
 @Options({
   name: "Room",
@@ -34,9 +48,25 @@ import { Options, Vue } from "vue-class-component";
       }),
     },
   },
+  methods: {
+    deleteRoom(id: string) {
+      axios
+        .delete(roomApi.deleteRoom(id))
+        .then((res) => {
+          if (res.data) {
+            JSON.stringify(res.data);
+          }
+        })
+        .catch((err) => {
+          JSON.stringify(err);
+        })
+        .finally(() => this.$router.go(0));
+    },
+  },
 })
 export default class Room extends Vue {
   tableItem: any;
+  deleteRoom: any;
 }
 </script>
 

@@ -1,29 +1,8 @@
 <template>
-  <el-form
-    ref="ruleFormRef"
-    :model="ruleForm"
-    status-icon
-    label-width="120px"
-    class="demo-ruleForm"
-  >
-    <el-header>Add Round</el-header>
-    <el-form-item label="Name" prop="pass">
-      <el-input v-model="ruleForm.name" type="text" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Description" prop="checkPass">
-      <el-input
-        v-model="ruleForm.description"
-        type="textarea"
-        autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-        >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-checkbox v-model="checked1" label="Option 1" size="large" />
+    <el-checkbox v-model="checked2" label="Option 2" size="large" />
+  </div>
 </template>
 
 <script>
