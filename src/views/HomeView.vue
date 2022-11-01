@@ -1,5 +1,6 @@
 <template>
   <dynamic-layout>
+    <el-header>HOME</el-header>
     <el-row :style="{ textAlign: 'center', padding: '10px' }">
       <el-link :href="`/add-room`">
         <el-button :type="'primary'" :style="{ margin: '10px' }">
@@ -35,16 +36,13 @@
 import { Options, Vue } from "vue-class-component";
 import DynamicLayout from "@/layout/DynamicLayout.vue";
 import Room from "@/ui/Room.vue";
-import AddRoom from "@/ui/AddRoom.vue";
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
 import roomApi from "@/configs/roomApi";
 
 @Options({
   components: {
     DynamicLayout,
     Room,
-    AddRoom,
   },
   props: {
     roundId: {

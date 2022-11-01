@@ -45,7 +45,7 @@ import AddRound from "@/components/AddRound.vue";
     };
   },
 })
-export default class HomeView extends Vue {
+export default class AddRoundClass extends Vue {
   tableData: Array<{ date: string; name: string; state: string }> | undefined;
   ruleForm: any;
   resetForm: any;
