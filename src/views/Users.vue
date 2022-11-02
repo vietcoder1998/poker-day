@@ -1,6 +1,6 @@
 <template>
   <center-layout>
-    <el-table :data="tableData" style="width: 100%" max-height="250">
+    <el-table :data="tableData" max-height="250">
       <el-table-column fixed prop="date" label="Date" width="150" />
       <el-table-column prop="name" label="Name" width="120" />
       <el-table-column prop="state" label="State" width="120" />

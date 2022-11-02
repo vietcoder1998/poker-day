@@ -37,7 +37,7 @@
       </template>
     </el-dialog>
     <!-- Add User -->
-    <el-table :data="tableData" max-height="250" width="100%">
+    <el-table :data="tableData" max-height="250">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="callNumber" label="Call" width="250">
         <template #default="scope">
