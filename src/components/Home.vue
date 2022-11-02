@@ -1,5 +1,6 @@
 <template>
   <fragment>
+    <el-header>Room List</el-header>
     <el-row class="home">
       <el-col
         :span="6"

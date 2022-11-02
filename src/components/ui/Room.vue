@@ -15,9 +15,7 @@
             <el-link type="danger"> Delete </el-link>
           </template>
         </el-popconfirm>
-        <el-link :href="`/room/${tableItem.id}`" target="_blank" type="success">
-          Go
-        </el-link>
+        <el-link :href="`/room/${tableItem.id}`" type="success"> Go </el-link>
       </div>
     </template>
     <div style="text-align: left">

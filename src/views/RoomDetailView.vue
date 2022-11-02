@@ -60,7 +60,7 @@
         </template>
       </el-table-column>
       <el-table-column prop="total" label="Total" width="250" />
-      <el-table-column label="Operation" width="250" fixed="right">
+      <el-table-column label="Operation" width="150" fixed="right">
         <template #default="scope">
           <el-button
             link

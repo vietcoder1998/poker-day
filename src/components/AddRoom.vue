@@ -16,7 +16,7 @@
         autocomplete="off"
       />
     </el-form-item>
-    <el-form-item label="Month" prop="month">
+    <el-form-item label="Round" prop="round">
       <el-select
         v-model="ruleForm.roundId"
         class="m-2"
@@ -89,7 +89,7 @@ import roundApi from "@/configs/roundApi";
   },
   data() {
     return {
-      ruleForm: { name: "", description: "", date: "", month: "", roundId: "" },
+      ruleForm: { name: "", description: "", date: "", round: "", roundId: "" },
       rounds: [],
     };
   },

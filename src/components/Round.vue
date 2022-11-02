@@ -4,7 +4,7 @@
     <el-table :data="tableData" max-height="250">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="description" label="Description" width="250" />
-      <el-table-column fixed="right" label="Operation" width="120">
+      <el-table-column fixed="right" label="Operation" width="150">
         <template #default="scope">
           <el-button link type="primary">Edit</el-button>
           <el-popconfirm
