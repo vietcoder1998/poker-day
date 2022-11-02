@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/room/:roomId",
-    name: "room",
+    name: "room-detail",
     component: RoomDetailView,
   },
   {

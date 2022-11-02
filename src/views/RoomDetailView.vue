@@ -92,6 +92,7 @@ import gameApi from "@/configs/gameApi";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
+  name: "RoomDetailView",
   components: {
     CenterLayout,
   },

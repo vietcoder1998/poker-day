@@ -10,7 +10,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
 import Room from "@/components/Room.vue";
 
 @Options({
-  name: "RoundPage",
+  name: "RoomView",
   components: {
     CenterLayout,
     Room,

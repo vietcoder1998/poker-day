@@ -80,7 +80,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     };
   },
 })
-export default class Home extends Vue {
+export default class Room extends Vue {
   Rooms?: Array<any>;
   handleTabClick: any;
   RoomId: any;

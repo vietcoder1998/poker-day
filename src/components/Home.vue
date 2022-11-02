@@ -2,7 +2,7 @@
   <fragment>
     <el-header>Overview</el-header>
     <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
-      <el-header>{{ name }}</el-header>
+      <el-divider>{{ name }}</el-divider>
       <el-col
         v-for="room in rooms"
         :span="6"
@@ -57,7 +57,7 @@ import roundApi from "@/configs/roundApi";
       axios
         .get(roundApi.getRoundAll)
         .then((res) => {
-          this.rooms = res.data;
+          this.rounds = res.data;
         })
         .catch((err) => {
           alert(JSON.stringify(err));
