@@ -179,9 +179,6 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteRow() {
-      return;
-    },
   },
 })
 export default class RoomDetailView extends Vue {

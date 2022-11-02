@@ -9,7 +9,7 @@
         <el-popconfirm
           title="Are you sure to delete this?"
           :style="{ width: 250 }"
-          @confirm="deleteUser(scope.row.id)"
+          @confirm="() => deleteUser(scope.row.id)"
         >
           <template #reference>
             <el-button link type="danger">Delete</el-button>
@@ -27,7 +27,7 @@ import { Vue, Options } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
-  name: "User",
+  name: "Users",
   computed: {},
   components: {
     CenterLayout,
@@ -47,7 +47,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       axios
         .delete(userApi.deleteUser(userId))
         .then((res) => {
-          console.log(JSON.stringify(res.data));
+          alert(JSON.stringify(res.data));
           this.getUsers();
         })
         .catch((err) => {
@@ -74,6 +74,7 @@ export default class Home extends Vue {
     | undefined;
   deleteUser: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
+  getUsers: any;
 }
 </script>
 

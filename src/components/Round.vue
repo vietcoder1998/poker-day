@@ -4,11 +4,11 @@
     <el-table-column prop="description" label="Description" width="250" />
     <el-table-column fixed="right" label="Operation" width="120">
       <template #default="scope">
-        <el-button link type="primary" size="small">Edit</el-button>
+        <el-button link type="primary">Edit</el-button>
         <el-popconfirm
           title="Are you sure to delete this?"
           :style="{ width: 250 }"
-          @confirm="deleteRound(scope.row.id)"
+          @confirm="() => deleteRound(scope.row.id)"
         >
           <template #reference>
             <el-button link type="danger">Delete</el-button>
