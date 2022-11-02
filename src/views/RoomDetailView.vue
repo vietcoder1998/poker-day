@@ -60,11 +60,23 @@
         </template>
       </el-table-column>
       <el-table-column prop="total" label="Total" width="250" />
-      <el-table-column label="Operation" width="250">
+      <el-table-column label="Operation" width="250" fixed="right">
         <template #default="scope">
-          <el-button link @click="() => onSaveGameResult(scope.row.id)">
+          <el-button
+            link
+            type="primary"
+            @click="() => onSaveGameResult(scope.row.id)"
+          >
             Save
           </el-button>
+          <el-popconfirm
+            title="Are you sure to delete this?"
+            @confirm="() => deleteGame(scope.row.id)"
+          >
+            <template #reference>
+              <el-button link type="danger">Delete</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -111,14 +123,14 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       this.dialogVisible = false;
     },
     onSaveGameResult(gameId: string) {
-      const refs = this.$refs[gameId];
-      const [callNumber, inventory] = refs.map((item: any) => item.value);
+      const { callNumber, inventory } = this.games.find(
+        (item: any) => item.id === gameId
+      );
       axios
         .post(gameApi.updateGameResult(gameId), { callNumber, inventory })
         .then((res) => {
-          if (res.data.code === 200) {
-            this.getRoomDetail();
-          }
+          console.log(JSON.stringify(res));
+          this.getRoomDetail();
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -130,6 +142,16 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         .get(roomApi.getRoomDetail(roomId))
         .then((res) => {
           this.games = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+    deleteGame(gameId: string) {
+      axios
+        .delete(gameApi.deleteGame(gameId))
+        .then((res) => {
+          alert(JSON.stringify(res.data));
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -175,5 +197,6 @@ export default class RoomDetailView extends Vue {
   } = { name: "", description: "", id: "" };
   onAddGametoRoom: any;
   onSaveGameResult: any;
+  deleteGame: any;
 }
 </script>
