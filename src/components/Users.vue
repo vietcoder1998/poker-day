@@ -1,6 +1,7 @@
 <template>
   <el-table :data="tableData" max-height="250">
     <el-table-column prop="name" label="Name" width="250" />
+    <el-table-column prop="username" label="Name" width="250" />
     <el-table-column prop="description" label="Description" width="250" />
     <el-table-column fixed="right" label="Operation" width="120">
       <template #default="scope">
@@ -8,7 +9,7 @@
         <el-popconfirm
           title="Are you sure to delete this?"
           :style="{ width: 250 }"
-          @confirm="deleteRound(scope.row.id)"
+          @confirm="deleteUser(scope.row.id)"
         >
           <template #reference>
             <el-button link type="danger">Delete</el-button>
@@ -21,48 +22,33 @@
 
 <script lang="ts">
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
 import userApi from "@/configs/userApi";
-import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
-import Room from "./ui/Room.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
-  name: "Round",
+  name: "User",
   computed: {},
   components: {
-    AddRound,
-    Room,
     CenterLayout,
   },
   methods: {
-    getRounds() {
-      axios
-        .get(roundApi.getRoundAll)
-        .then((res) => {
-          this.tableData = res.data;
-        })
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
-    },
-    deleteRound(roundId: string) {
-      axios
-        .delete(roundApi.deleteRound(roundId))
-        .then((res) => {
-          this.getRounds();
-          this.tableData = res.data;
-        })
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
-    },
     getUsers() {
       axios
         .get(userApi.getUserAll)
         .then((res) => {
-          this.users = res.data;
+          this.tableData = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+    deleteUser(userId: string) {
+      axios
+        .delete(userApi.deleteUser(userId))
+        .then((res) => {
+          console.log(JSON.stringify(res.data));
+          this.getUsers();
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -70,7 +56,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
   },
   created() {
-    this.getRounds();
+    this.getUsers();
   },
   data() {
     return {
@@ -80,13 +66,13 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   },
 })
 export default class Home extends Vue {
-  rounds?: Array<any>;
+  users?: Array<any>;
   handleTabClick: any;
-  roundId: any;
+  userId: any;
   tableData:
     | Array<{ description: string; name: string; id: string }>
     | undefined;
-  deleteRound: any;
+  deleteUser: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
 }
 </script>
@@ -100,7 +86,7 @@ export default class Home extends Vue {
   margin: 10px;
   text-align: center;
   border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+  backguser: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
 }
 </style>

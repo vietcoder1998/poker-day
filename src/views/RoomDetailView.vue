@@ -152,6 +152,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         .delete(gameApi.deleteGame(gameId))
         .then((res) => {
           alert(JSON.stringify(res.data));
+          this.getRoomDetail();
         })
         .catch((err) => {
           alert(JSON.stringify(err));

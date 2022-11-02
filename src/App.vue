@@ -2,9 +2,10 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/round">Round</router-link> |
-    <router-link to="/add-round">AddRound</router-link> |
-    <router-link to="/add-room">Add Room</router-link> |
     <router-link to="/users">Users</router-link> |
+    <router-link to="/add-round">AddRound</router-link> |
+    <router-link to="/add-user">AddUser</router-link> |
+    <router-link to="/add-room">Add Room</router-link> |
     <router-link to="/about">About</router-link>
     <el-page-header @back="onBack"></el-page-header>
   </nav>

@@ -5,6 +5,7 @@ import AddRoom from "../views/AddRoom.vue";
 import AddRound from "../views/AddRound.vue";
 import Users from "../views/Users.vue";
 import RoundView from "../views/RoundView.vue";
+import AddUser from "../views/AddUser.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -21,6 +22,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/add-room",
     name: "add-room",
     component: AddRoom,
+  },
+  {
+    path: "/add-user",
+    name: "add-user",
+    component: AddUser,
   },
   {
     path: "/round",
