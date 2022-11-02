@@ -1,6 +1,6 @@
 <template>
   <center-layout>
-    <el-row align="right">
+    <el-row>
       <el-button type="primary" @click="dialogVisible = true"> Add </el-button>
     </el-row>
     <!-- Add User -->

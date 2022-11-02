@@ -20,8 +20,8 @@
     </template>
     <div style="text-align: left">
       <div>8 people</div>
-      <div>8/11/2022</div>
-      <div>Description</div>
+      <div>{{ tableItem.createdAt }}</div>
+      <div>{{ tableItem.description }}</div>
     </div>
   </el-card>
 </template>
