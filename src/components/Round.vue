@@ -1,13 +1,14 @@
 <template>
   <el-table :data="tableData" style="width: 100%" max-height="250">
     <el-table-column prop="name" label="Name" width="250" />
-    <el-table-column prop="name" label="description" width="250" />
+    <el-table-column prop="description" label="description" width="250" />
     <el-table-column fixed="right" label="Operation" width="120">
-      <template #default>
+      <template #default="scope">
         <el-button link type="primary" size="small">Edit</el-button>
         <el-popconfirm
           title="Are you sure to delete this?"
           :style="{ width: 250 }"
+          @confirm="deleteRound(scope.row.id)"
         >
           <template #reference>
             <el-button link type="danger">Delete</el-button>
@@ -21,6 +22,7 @@
 <script lang="ts">
 import axios from "axios";
 import roundApi from "@/configs/roundApi";
+import userApi from "@/configs/userApi";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import Room from "./ui/Room.vue";
@@ -35,7 +37,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     CenterLayout,
   },
   methods: {
-    getRooms() {
+    getRounds() {
       axios
         .get(roundApi.getRoundAll)
         .then((res) => {
@@ -45,13 +47,35 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
+    deleteRound(roundId: string) {
+      axios
+        .delete(roundApi.deleteRound(roundId))
+        .then((res) => {
+          this.getRounds();
+          this.tableData = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+    getUsers() {
+      axios
+        .get(userApi.getUserAll)
+        .then((res) => {
+          this.users = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
   },
   created() {
-    this.getRooms();
+    this.getRounds();
   },
   data() {
     return {
       tableData: [],
+      users: [],
     };
   },
 })
