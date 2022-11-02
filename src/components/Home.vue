@@ -19,7 +19,6 @@
 
 <script lang="ts">
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
