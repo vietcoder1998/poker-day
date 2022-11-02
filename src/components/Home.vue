@@ -1,18 +1,19 @@
 <template>
   <fragment>
     <el-header>Overview</el-header>
-    <el-row class="home">
+    <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
+      <el-header>{{ name }}</el-header>
       <el-col
+        v-for="room in rooms"
         :span="6"
         :sm="12"
         :xs="24"
         :lg="6"
         :md="8"
-        v-for="room in rooms"
         :key="room?.id"
         :body-style="{ padding: '10px' }"
       >
-        <RoomCard :tableItem="room"></RoomCard>
+        <RoomCard v-if="room" :tableItem="room"></RoomCard>
       </el-col>
     </el-row>
   </fragment>
@@ -24,7 +25,7 @@ import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
 import roomApi from "@/configs/roomApi";
-import RoomCard from "./ui/RoomCard.vue";
+import RoomCard from "@/components/ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 import roundApi from "@/configs/roundApi";
 
