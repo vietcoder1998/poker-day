@@ -43,21 +43,30 @@
         <template #default="scope">
           <el-input-number
             v-model="scope.row.callNumber"
+            :ref="scope.row.id"
             :min="0"
             :max="100000"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="inventory" label="All" width="250">
+      <el-table-column prop="inventory" label="Inventory" width="250">
         <template #default="scope">
           <el-input-number
             v-model="scope.row.inventory"
+            :ref="scope.row.id"
             :min="0"
             :max="100000"
           />
         </template>
       </el-table-column>
       <el-table-column prop="total" label="Total" width="250" />
+      <el-table-column label="Operation" width="250">
+        <template #default="scope">
+          <el-button link @click="() => onSaveGameResult(scope.row.id)">
+            Save
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </center-layout>
 </template>
@@ -67,6 +76,7 @@ import { Options, Vue } from "vue-class-component";
 import axios from "axios";
 import roomApi from "@/configs/roomApi";
 import userApi from "@/configs/userApi";
+import gameApi from "@/configs/gameApi";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
@@ -99,6 +109,20 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   methods: {
     handleClose() {
       this.dialogVisible = false;
+    },
+    onSaveGameResult(gameId: string) {
+      const refs = this.$refs[gameId];
+      const [callNumber, inventory] = refs.map((item: any) => item.value);
+      axios
+        .post(gameApi.updateGameResult(gameId), { callNumber, inventory })
+        .then((res) => {
+          if (res.data.code === 200) {
+            this.getRoomDetail();
+          }
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
     },
     getRoomDetail() {
       const { roomId } = this.$route.params;
@@ -150,5 +174,6 @@ export default class RoomDetailView extends Vue {
     id: string;
   } = { name: "", description: "", id: "" };
   onAddGametoRoom: any;
+  onSaveGameResult: any;
 }
 </script>
