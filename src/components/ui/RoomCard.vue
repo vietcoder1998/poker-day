@@ -19,7 +19,9 @@
       </div>
     </template>
     <div style="text-align: left">
-      <div>8 people</div>
+      <div>
+        <b>{{ tableItem.round.name }} </b>
+      </div>
       <div>{{ tableItem.createdAt }}</div>
       <div>{{ tableItem.description }}</div>
     </div>
@@ -32,7 +34,7 @@ import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
 @Options({
-  name: "Room",
+  name: "RoomCard",
   props: {
     tableItem: {
       type: Object,

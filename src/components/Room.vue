@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-header> Round </el-header>
+    <el-header> Room </el-header>
     <el-table :data="tableData" max-height="250">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="description" label="Description" width="250" />
@@ -10,7 +10,7 @@
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
-            @confirm="() => deleteRound(scope.row.id)"
+            @confirm="() => deleteRoom(scope.row.id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
@@ -24,25 +24,23 @@
 
 <script lang="ts">
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
+import roomApi from "@/configs/roomApi";
 import userApi from "@/configs/userApi";
-import AddRound from "@/components/AddRound.vue";
+import AddRoom from "@/components/AddRoom.vue";
 import { Vue, Options } from "vue-class-component";
-import Room from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
-  name: "Round",
+  name: "Room",
   computed: {},
   components: {
-    AddRound,
-    Room,
+    AddRoom,
     CenterLayout,
   },
   methods: {
-    getRounds() {
+    getRooms() {
       axios
-        .get(roundApi.getRoundAll)
+        .get(roomApi.getRoomAll)
         .then((res) => {
           this.tableData = res.data;
         })
@@ -50,11 +48,11 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteRound(roundId: string) {
+    deleteRoom(RoomId: string) {
       axios
-        .delete(roundApi.deleteRound(roundId))
+        .delete(roomApi.deleteRoom(RoomId))
         .then((res) => {
-          this.getRounds();
+          this.getRooms();
           this.tableData = res.data;
         })
         .catch((err) => {
@@ -73,7 +71,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
   },
   created() {
-    this.getRounds();
+    this.getRooms();
   },
   data() {
     return {
@@ -83,13 +81,13 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   },
 })
 export default class Home extends Vue {
-  rounds?: Array<any>;
+  Rooms?: Array<any>;
   handleTabClick: any;
-  roundId: any;
+  RoomId: any;
   tableData:
     | Array<{ description: string; name: string; id: string }>
     | undefined;
-  deleteRound: any;
+  deleteRoom: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
 }
 </script>
@@ -103,7 +101,7 @@ export default class Home extends Vue {
   margin: 10px;
   text-align: center;
   border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+  background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
 }
 </style>

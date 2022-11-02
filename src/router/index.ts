@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import RoomView from "../views/RoomView.vue";
 import RoomDetailView from "../views/RoomDetailView.vue";
 import AddRoom from "../views/AddRoom.vue";
 import AddRound from "../views/AddRound.vue";
@@ -12,6 +13,11 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/room",
+    name: "room",
+    component: RoomView,
   },
   {
     path: "/room/:roomId",

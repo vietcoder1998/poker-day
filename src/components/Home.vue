@@ -1,6 +1,6 @@
 <template>
   <fragment>
-    <el-header>Room List</el-header>
+    <el-header>Overview</el-header>
     <el-row class="home">
       <el-col
         :span="6"
@@ -12,7 +12,7 @@
         :key="room?.id"
         :body-style="{ padding: '10px' }"
       >
-        <Room :tableItem="room"></Room>
+        <RoomCard :tableItem="room"></RoomCard>
       </el-col>
     </el-row>
   </fragment>
@@ -24,16 +24,17 @@ import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
 import roomApi from "@/configs/roomApi";
-import Room from "./ui/Room.vue";
+import RoomCard from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import roundApi from "@/configs/roundApi";
 
 @Options({
   name: "Home",
   computed: {},
   components: {
     AddRound,
-    Room,
     CenterLayout,
+    RoomCard,
   },
   methods: {
     handleTabClick(tab: TabsPaneContext, event: Event) {
@@ -51,9 +52,20 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
+    getRounds() {
+      axios
+        .get(roundApi.getRoundAll)
+        .then((res) => {
+          this.rooms = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
   },
   created() {
-    this.getRooms();
+    // this.getRooms();
+    this.getRounds();
   },
   data() {
     return {
