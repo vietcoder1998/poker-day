@@ -1,5 +1,6 @@
 <template>
   <el-row>
+    <el-header> User </el-header>
     <el-link type="primary" href="/add-user"> Add User </el-link>
     <el-table :data="tableData" max-height="250">
       <el-table-column prop="name" label="Name" width="250" />

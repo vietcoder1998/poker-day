@@ -1,22 +1,25 @@
 <template>
-  <el-table :data="tableData" max-height="250">
-    <el-table-column prop="name" label="Name" width="250" />
-    <el-table-column prop="description" label="Description" width="250" />
-    <el-table-column fixed="right" label="Operation" width="120">
-      <template #default="scope">
-        <el-button link type="primary">Edit</el-button>
-        <el-popconfirm
-          title="Are you sure to delete this?"
-          :style="{ width: 250 }"
-          @confirm="() => deleteRound(scope.row.id)"
-        >
-          <template #reference>
-            <el-button link type="danger">Delete</el-button>
-          </template>
-        </el-popconfirm>
-      </template>
-    </el-table-column>
-  </el-table>
+  <el-row>
+    <el-header> Round </el-header>
+    <el-table :data="tableData" max-height="250">
+      <el-table-column prop="name" label="Name" width="250" />
+      <el-table-column prop="description" label="Description" width="250" />
+      <el-table-column fixed="right" label="Operation" width="120">
+        <template #default="scope">
+          <el-button link type="primary">Edit</el-button>
+          <el-popconfirm
+            title="Are you sure to delete this?"
+            :style="{ width: 250 }"
+            @confirm="() => deleteRound(scope.row.id)"
+          >
+            <template #reference>
+              <el-button link type="danger">Delete</el-button>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+    </el-table>
+  </el-row>
 </template>
 
 <script lang="ts">
