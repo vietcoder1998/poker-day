@@ -10,12 +10,11 @@ import AddRoom from "@/components/AddRoom.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
+  name: "AddRoomPage",
   components: {
     AddRoom,
     CenterLayout,
   },
-
-  name: "AddRoomPage",
 })
 export default class AddRoomClass extends Vue {
   tableData: Array<{ date: string; name: string; state: string }> | undefined;
