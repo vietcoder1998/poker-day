@@ -1,8 +1,19 @@
 <template>
   <CenterLayout>
     <el-header>Home</el-header>
-    <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
+    <el-row
+      v-for="{ rooms, name, id, statistic } in rounds"
+      :key="id"
+      class="home"
+    >
       <el-divider>{{ name }}</el-divider>
+      <el-col v-if="statistic && statistic.length > 0" :span="24">
+        <user-dash-board
+          v-for="(item, key) in statistic"
+          v-bind:key="['statistic', key].join('_')"
+          :data="item"
+        ></user-dash-board>
+      </el-col>
       <el-col :span="24" :style="{ textAlign: 'left' }">
         <el-button
           type="primary"
@@ -36,14 +47,16 @@ import type { TabsPaneContext } from "element-plus";
 import RoomCard from "@/components/ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 import roundApi from "@/configs/roundApi";
+import statisticApi from "@/configs/statisticApi";
+import UserDashBoard from "@/components/ui/UserDashBoard.vue";
 
 @Options({
   name: "Home",
-  computed: {},
   components: {
     AddRound,
     CenterLayout,
     RoomCard,
+    UserDashBoard,
   },
   methods: {
     handleTabClick(tab: TabsPaneContext) {
@@ -51,7 +64,7 @@ import roundApi from "@/configs/roundApi";
       this.roundId = tab.props.name;
       this.getRooms();
     },
-    getRounds() {
+    async getRounds() {
       axios
         .get(roundApi.getRoundAll + "?withRoom=true")
         .then((res) => {
@@ -61,16 +74,52 @@ import roundApi from "@/configs/roundApi";
           alert(JSON.stringify(err));
         });
     },
+    async getStatistic() {
+      axios
+        .get(statisticApi.getStatistic)
+        .then((res) => {
+          this.statistics = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+    mapStatisticGametoRound() {
+      console.log(this.rounds, this.statistic);
+    },
+  },
+  computed: {
+    roundIds() {
+      return this.rounds.map((item) => item.id);
+    },
   },
   created() {
     // this.getRooms();
-    this.getRounds();
+    this.getRounds().then(() => {
+      this.getStatistic().then(() => {
+        this.mapStatisticGametoRound();
+      });
+    });
+  },
+  watch: {
+    statistics: {
+      handler(nVal, oVal) {
+        this.rounds = this.rounds.map((round) => {
+          const filterItem = nVal.filter((item) => item._id.round === round.id);
+          round.statistic = filterItem;
+
+          return round;
+        });
+      },
+      deep: true,
+    },
   },
   data() {
     return {
       rounds: [],
       roundId: "add",
       rooms: [],
+      statistics: [],
     };
   },
 })

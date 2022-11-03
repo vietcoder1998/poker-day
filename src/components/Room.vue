@@ -51,7 +51,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
 import RoomEditModal from "@/components/room/RoomEditModal.vue";
 
 @Options({
-  name: "Room",
+  name: "RoomView",
   computed: {},
   components: {
     AddRoom,

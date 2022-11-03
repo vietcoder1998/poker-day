@@ -46,9 +46,9 @@ import roomApi from "@/configs/roomApi";
     },
   },
   methods: {
-    deleteRoom() {
+    deleteRoom(roomId) {
       axios
-        .delete(roomApi.deleteRoom(this.tableItem.id))
+        .delete(roomApi.deleteRoom(roomId))
         .then((res) => {
           if (res.data) {
             alert(JSON.stringify(res.data));

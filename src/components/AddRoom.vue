@@ -72,7 +72,8 @@ import roundApi from "@/configs/roundApi";
         .then((res) => {
           this.rooms = res.data;
           alert(JSON.stringify(res.data));
-          this.$router.go(-1);
+          console.log("success");
+          this.$router.push(`/room/${res.data.data.id}`);
         })
         .catch((err) => {
           alert(JSON.stringify(err));
