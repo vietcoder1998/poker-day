@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-header> Round </el-header>
-    <el-table :data="tableData" max-height="250">
+    <el-table :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="description" label="Description" width="250" />
       <el-table-column fixed="right" label="Operation" width="150">

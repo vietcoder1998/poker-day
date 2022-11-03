@@ -1,26 +1,28 @@
 <template>
   <el-row>
     <el-header> User </el-header>
-    <el-link type="primary" href="/add-user"> Add User </el-link>
-    <el-table :data="tableData" max-height="250">
-      <el-table-column prop="name" label="Name" width="250" />
-      <el-table-column prop="username" label="Name" width="250" />
-      <el-table-column prop="description" label="Description" width="250" />
-      <el-table-column fixed="right" label="Operation" width="150">
-        <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
-          <el-popconfirm
-            title="Are you sure to delete this?"
-            :style="{ width: 250 }"
-            @confirm="() => deleteUser(scope.row.id)"
-          >
-            <template #reference>
-              <el-button link type="danger">Delete</el-button>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
-    </el-table>
+    <el-row>
+      <el-button type="primary" href="/add-user"> Add User </el-button>
+      <el-table :data="tableData" max-height="500">
+        <el-table-column prop="name" label="Name" width="250" />
+        <el-table-column prop="username" label="Name" width="250" />
+        <el-table-column prop="description" label="Description" width="250" />
+        <el-table-column fixed="right" label="Operation" width="150">
+          <template #default="scope">
+            <el-button link type="primary">Edit</el-button>
+            <el-popconfirm
+              title="Are you sure to delete this?"
+              :style="{ width: 250 }"
+              @confirm="() => deleteUser(scope.row.id)"
+            >
+              <template #reference>
+                <el-button link type="danger">Delete</el-button>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-row>
   </el-row>
 </template>
 

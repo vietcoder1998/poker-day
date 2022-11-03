@@ -1,12 +1,31 @@
 <template>
   <el-row>
     <el-header> Room </el-header>
-    <el-table :data="tableData" max-height="250">
+    <RoomEditModal
+      :dialogVisible="visibleEditRoom"
+      :roomDetail="roomDetail"
+      @close="visibleEditRoom = false"
+    ></RoomEditModal>
+    <el-table :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" width="250" />
       <el-table-column prop="description" label="Description" width="250" />
-      <el-table-column fixed="right" label="Operation" width="150">
+      <el-table-column fixed="right" label="Operation" width="200">
         <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
+          <el-button
+            link
+            type="primary"
+            @click="
+              roomDetail = scope.row;
+              visibleEditRoom = true;
+            "
+            >Edit</el-button
+          >
+          <el-button
+            link
+            type="success"
+            @click="() => $router.push(`/room/${scope.row.id}`)"
+            >Go</el-button
+          >
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
@@ -29,6 +48,7 @@ import userApi from "@/configs/userApi";
 import AddRoom from "@/components/AddRoom.vue";
 import { Vue, Options } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import RoomEditModal from "@/components/room/RoomEditModal.vue";
 
 @Options({
   name: "Room",
@@ -36,6 +56,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   components: {
     AddRoom,
     CenterLayout,
+    RoomEditModal,
   },
   methods: {
     getRooms() {
@@ -89,6 +110,12 @@ export default class Room extends Vue {
     | undefined;
   deleteRoom: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
+  visibleEditRoom = false;
+  roomDetail: { id: string; name: string; description: string } = {
+    name: "",
+    description: "",
+    id: "",
+  };
 }
 </script>
 

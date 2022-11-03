@@ -1,20 +1,28 @@
 <template>
   <center-layout>
+    <el-header
+      >Room Detail: <bold>{{ roomDetail.name }}</bold></el-header
+    >
     <el-row>
-      <el-button type="primary" @click="dialogVisible = true"> Add </el-button>
+      <el-button type="primary" @click="dialogVisible = true">
+        Add Game
+      </el-button>
+      <el-button type="primary" @click="() => $router.push('/add-user')">
+        Add User
+      </el-button>
     </el-row>
     <!-- Add User -->
     <el-dialog v-model="dialogVisible" title="Thêm người dùng" width="30%">
       <!-- User info -->
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-select v-model="newUser.id" class="m-2" placeholder="Select">
+          <el-select v-model="newUser.name" class="m-2" placeholder="Select">
             <el-option
-              v-for="item in users"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-              @click="newUser = item"
+              v-for="user in users"
+              :key="user.id"
+              :label="user.name"
+              :value="user.id"
+              @click="newUser = user"
             />
           </el-select>
         </el-col>
@@ -37,19 +45,19 @@
       </template>
     </el-dialog>
     <!-- Add User -->
-    <el-table :data="tableData" max-height="250">
-      <el-table-column prop="name" label="Name" width="250" />
-      <el-table-column prop="callNumber" label="Call" width="250">
+    <el-table :data="games" max-height="500">
+      <el-table-column prop="name" label="Name" width="150" />
+      <el-table-column prop="callNumber" label="Call" width="200">
         <template #default="scope">
           <el-input-number
             v-model="scope.row.callNumber"
             :ref="scope.row.id"
             :min="0"
-            :max="100000"
+            :max="20"
           />
         </template>
       </el-table-column>
-      <el-table-column prop="inventory" label="Inventory" width="250">
+      <el-table-column prop="inventory" label="Inventory" width="200">
         <template #default="scope">
           <el-input-number
             v-model="scope.row.inventory"
@@ -59,24 +67,32 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="total" label="Total" width="250" />
-      <el-table-column label="Operation" width="150" fixed="right">
+      <el-table-column prop="total" label="Total" width="200">
+        <template #default="scope">
+          <label :style="{ color: scope.row.total < 0 ? 'red' : 'green' }">{{
+            scope.row.total
+          }}</label>
+        </template>
+      </el-table-column>
+      <el-table-column label="Operation" width="200" fixed="right">
         <template #default="scope">
           <el-button
             link
             type="primary"
-            @click="() => onSaveGameResult(scope.row.id)"
+            @click="() => onSaveGameResult(scope.row._id)"
           >
             Save
           </el-button>
+          <!-- Delete  -->
           <el-popconfirm
             title="Are you sure to delete this?"
-            @confirm="() => deleteGame(scope.row.id)"
+            @confirm="() => deleteGame(scope.row._id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
             </template>
           </el-popconfirm>
+          <!-- Delete  -->
         </template>
       </el-table-column>
     </el-table>
@@ -112,6 +128,12 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         id: "",
         description: "",
       },
+      roomDetail: {
+        name: "",
+        id: "",
+        description: "",
+        games: [],
+      },
     };
   },
   computed: {
@@ -124,13 +146,15 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       this.dialogVisible = false;
     },
     onSaveGameResult(gameId: string) {
+      console.log(gameId);
       const { callNumber, inventory } = this.games.find(
-        (item: any) => item.id === gameId
+        (item: any) => item._id === gameId
       );
       axios
         .post(gameApi.updateGameResult(gameId), { callNumber, inventory })
         .then((res) => {
           console.log(JSON.stringify(res));
+          alert(JSON.stringify(res.data));
           this.getRoomDetail();
         })
         .catch((err) => {
@@ -142,7 +166,8 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       axios
         .get(roomApi.getRoomDetail(roomId))
         .then((res) => {
-          this.games = res.data;
+          this.roomDetail = res.data;
+          this.games = this.roomDetail.games;
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -173,8 +198,9 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       axios
         .post(roomApi.addGameToRoom(this.roomId, this.newUser.id))
         .then((res) => {
+          this.dialogVisible = false;
+          console.log(JSON.stringify(res.data));
           this.getRoomDetail();
-          this.dialogFormVisible = false;
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -184,18 +210,13 @@ import CenterLayout from "@/layout/CenterLayout.vue";
 })
 export default class RoomDetailView extends Vue {
   tableData: unknown;
-  deleteRow(event: any) {
-    console.log("Event: " + event);
-  }
-  dialogVisible: any = false;
-  users: any[] = [];
-  newUser: {
-    name: string;
-    description: string;
-    id: string;
-  } = { name: "", description: "", id: "" };
+  dialogVisible: any;
+  users: any;
+  newUser: any;
   onAddGametoRoom: any;
   onSaveGameResult: any;
   deleteGame: any;
+  roomDetail: any;
+  games: any;
 }
 </script>

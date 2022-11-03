@@ -61,7 +61,7 @@ import roundApi from "@/configs/roundApi";
     resetForm(form: any) {
       form.reset();
     },
-    submitForm(form: any) {
+    submitForm() {
       axios
         .post(roomApi.addRoom, this.ruleForm)
         .then((res) => {

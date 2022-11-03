@@ -31,7 +31,6 @@
 
 <script>
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
 import userApi from "@/configs/userApi";
 import { Vue, Options } from "vue-class-component";
 

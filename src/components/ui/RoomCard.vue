@@ -9,13 +9,13 @@
           icon-color="#626AEF"
           title="Are you sure to delete this?"
           width="200px"
-          @confirm="() => deleteRoom(tableItem.id)"
+          @confirm="() => deleteRoom(tableItem._id)"
         >
           <template #reference>
             <el-link type="danger"> Delete </el-link>
           </template>
         </el-popconfirm>
-        <el-link :href="`/room/${tableItem.id}`" type="success"> Go </el-link>
+        <el-link :href="`/room/${tableItem._id}`" type="success"> Go </el-link>
       </div>
     </template>
     <div style="text-align: left">
@@ -46,7 +46,7 @@ import roomApi from "@/configs/roomApi";
     },
   },
   methods: {
-    deleteRoom(id: string) {
+    deleteRoom() {
       axios
         .delete(roomApi.deleteRoom(this.tableItem.id))
         .then((res) => {

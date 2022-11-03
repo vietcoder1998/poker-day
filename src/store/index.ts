@@ -12,7 +12,7 @@ export default createStore({
     },
   },
   mutations: {
-    GET_ROOM_ALL(state, payload) {
+    GET_ROOM_ALL(state) {
       return Room.getRoomAll().then((res: any) => (state.rooms = res.data));
     },
   },

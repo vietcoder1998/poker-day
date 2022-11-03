@@ -1,6 +1,6 @@
 <template>
-  <fragment>
-    <el-header>Overview</el-header>
+  <CenterLayout>
+    <el-header>Home</el-header>
     <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
       <el-divider>{{ name }}</el-divider>
       <el-col
@@ -16,7 +16,7 @@
         <RoomCard v-if="room" :tableItem="room"></RoomCard>
       </el-col>
     </el-row>
-  </fragment>
+  </CenterLayout>
 </template>
 
 <script lang="ts">
@@ -24,7 +24,6 @@ import axios from "axios";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
-import roomApi from "@/configs/roomApi";
 import RoomCard from "@/components/ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 import roundApi from "@/configs/roundApi";
@@ -38,24 +37,14 @@ import roundApi from "@/configs/roundApi";
     RoomCard,
   },
   methods: {
-    handleTabClick(tab: TabsPaneContext, event: Event) {
+    handleTabClick(tab: TabsPaneContext) {
       this.$router.push({ query: { roundId: tab.props.name } });
       this.roundId = tab.props.name;
       this.getRooms();
     },
-    getRooms() {
-      axios
-        .get(roomApi.getRoomAll)
-        .then((res) => {
-          this.rooms = res.data;
-        })
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
-    },
     getRounds() {
       axios
-        .get(roundApi.getRoundAll)
+        .get(roundApi.getRoundAll + "?withRoom=true")
         .then((res) => {
           this.rounds = res.data;
         })
