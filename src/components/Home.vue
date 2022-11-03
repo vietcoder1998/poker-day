@@ -1,7 +1,11 @@
 <template>
   <CenterLayout>
     <el-header>Home</el-header>
-    <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
+    <el-row
+      v-for="{ rooms, name, id, statistic } in rounds"
+      :key="id"
+      :gutter="20"
+    >
       <el-divider>{{ name }}</el-divider>
       <el-col :span="24" :style="{ textAlign: 'left' }">
         <el-button
@@ -12,6 +16,9 @@
           Add Room</el-button
         >
       </el-col>
+      <el-col v-if="statistic && statistic.length > 0" :span="24">
+        <UserDashBoard :statistic="statistic"></UserDashBoard>
+      </el-col>
       <el-col
         v-for="room in rooms"
         :span="8"
@@ -20,7 +27,6 @@
         :lg="8"
         :md="12"
         :key="room?.id"
-        :body-style="{ padding: '10px' }"
       >
         <RoomCard v-if="room" :tableItem="room"></RoomCard>
       </el-col>
@@ -36,14 +42,16 @@ import type { TabsPaneContext } from "element-plus";
 import RoomCard from "@/components/ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 import roundApi from "@/configs/roundApi";
+import statisticApi from "@/configs/statisticApi";
+import UserDashBoard from "@/components/ui/UserDashBoard.vue";
 
 @Options({
   name: "Home",
-  computed: {},
   components: {
     AddRound,
     CenterLayout,
     RoomCard,
+    UserDashBoard,
   },
   methods: {
     handleTabClick(tab: TabsPaneContext) {
@@ -51,7 +59,7 @@ import roundApi from "@/configs/roundApi";
       this.roundId = tab.props.name;
       this.getRooms();
     },
-    getRounds() {
+    async getRounds() {
       axios
         .get(roundApi.getRoundAll + "?withRoom=true")
         .then((res) => {
@@ -61,16 +69,46 @@ import roundApi from "@/configs/roundApi";
           alert(JSON.stringify(err));
         });
     },
+    async getStatistic() {
+      axios
+        .get(statisticApi.getStatistic)
+        .then((res) => {
+          this.statistics = res.data;
+        })
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    },
+  },
+  computed: {
+    roundIds() {
+      return this.rounds.map((item) => item.id);
+    },
   },
   created() {
     // this.getRooms();
     this.getRounds();
+    this.getStatistic();
+  },
+  watch: {
+    statistics: {
+      handler(nVal) {
+        this.rounds = this.rounds.map((round) => {
+          const filterItem = nVal.filter((item) => item._id.round === round.id);
+          round.statistic = filterItem;
+
+          return round;
+        });
+      },
+      deep: true,
+    },
   },
   data() {
     return {
       rounds: [],
       roundId: "add",
       rooms: [],
+      statistics: [],
     };
   },
 })
@@ -87,6 +125,10 @@ export default class Home extends Vue {
 </script>
 
 <style scoped>
+.el-col {
+  margin-bottom: 10px;
+}
+
 .scrollbar-demo-item {
   display: flex;
   align-items: center;

@@ -1,16 +1,29 @@
 <template>
   <el-row>
-    <el-header> Round </el-header>
+    <el-header> Permission </el-header>
+    <PermissionEditModal
+      :dialogVisible="visibleEditPermission"
+      :permissionDetail="permissionDetail"
+      @close="visibleEditPermission = false"
+    ></PermissionEditModal>
     <el-table :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="description" label="Description" />
-      <el-table-column fixed="right" label="Operation" width="150">
+      <el-table-column fixed="right" label="Operation" width="200">
         <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
+          <el-button
+            link
+            type="primary"
+            @click="
+              permissionDetail = scope.row;
+              visibleEditPermission = true;
+            "
+            >Edit</el-button
+          >
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
-            @confirm="() => deleteRound(scope.row.id)"
+            @confirm="() => deletePermission(scope.row.id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
@@ -24,25 +37,25 @@
 
 <script lang="ts">
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
+import permissionApi from "@/configs/permissionApi";
 import userApi from "@/configs/userApi";
-import AddRound from "@/components/AddRound.vue";
+import AddPermission from "@/components/AddPermission.vue";
 import { Vue, Options } from "vue-class-component";
-import Room from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import PermissionEditModal from "@/components/permission/PermissionEditModal.vue";
 
 @Options({
-  name: "Round",
+  name: "PermissionView",
   computed: {},
   components: {
-    AddRound,
-    Room,
+    AddPermission,
     CenterLayout,
+    PermissionEditModal,
   },
   methods: {
-    getRounds() {
+    getPermissions() {
       axios
-        .get(roundApi.getRoundAll)
+        .get(permissionApi.getPermissionAll)
         .then((res) => {
           this.tableData = res.data;
         })
@@ -50,11 +63,11 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteRound(roundId: string) {
+    deletePermission(PermissionId: string) {
       axios
-        .delete(roundApi.deleteRound(roundId))
+        .delete(permissionApi.deletePermission(PermissionId))
         .then((res) => {
-          this.getRounds();
+          this.getPermissions();
           this.tableData = res.data;
         })
         .catch((err) => {
@@ -73,7 +86,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
   },
   created() {
-    this.getRounds();
+    this.getPermissions();
   },
   data() {
     return {
@@ -82,15 +95,20 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     };
   },
 })
-export default class Home extends Vue {
-  rounds?: Array<any>;
+export default class Permission extends Vue {
   handleTabClick: any;
-  roundId: any;
+  permissionIds: any;
   tableData:
     | Array<{ description: string; name: string; id: string }>
     | undefined;
-  deleteRound: any;
-  rooms: Array<{ name: string; id: string; description: string }> = [];
+  deletePermission: any;
+  permissions: Array<{ name: string; id: string; description: string }> = [];
+  visibleEditPermission = false;
+  permissionDetail: { id: string; name: string; description: string } = {
+    name: "",
+    description: "",
+    id: "",
+  };
 }
 </script>
 
@@ -103,7 +121,7 @@ export default class Home extends Vue {
   margin: 10px;
   text-align: center;
   border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+  background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
 }
 </style>

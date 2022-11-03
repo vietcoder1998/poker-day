@@ -1,16 +1,29 @@
 <template>
   <el-row>
-    <el-header> Round </el-header>
+    <el-header> Role </el-header>
+    <RoleEditModal
+      :dialogVisible="visibleEditRole"
+      :roleDetail="roleDetail"
+      @close="visibleEditRole = false"
+    ></RoleEditModal>
     <el-table :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="description" label="Description" />
-      <el-table-column fixed="right" label="Operation" width="150">
+      <el-table-column fixed="right" label="Operation" width="200">
         <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
+          <el-button
+            link
+            type="primary"
+            @click="
+              roleDetail = scope.row;
+              visibleEditRole = true;
+            "
+            >Edit</el-button
+          >
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
-            @confirm="() => deleteRound(scope.row.id)"
+            @confirm="() => deleteRole(scope.row.id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
@@ -24,25 +37,25 @@
 
 <script lang="ts">
 import axios from "axios";
-import roundApi from "@/configs/roundApi";
+import roleApi from "@/configs/roleApi";
 import userApi from "@/configs/userApi";
-import AddRound from "@/components/AddRound.vue";
+import AddRole from "@/components/AddRole.vue";
 import { Vue, Options } from "vue-class-component";
-import Room from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import RoleEditModal from "@/components/role/RoleEditModal.vue";
 
 @Options({
-  name: "Round",
+  name: "RoleView",
   computed: {},
   components: {
-    AddRound,
-    Room,
+    AddRole,
     CenterLayout,
+    RoleEditModal,
   },
   methods: {
-    getRounds() {
+    getRoles() {
       axios
-        .get(roundApi.getRoundAll)
+        .get(roleApi.getRoleAll)
         .then((res) => {
           this.tableData = res.data;
         })
@@ -50,11 +63,11 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteRound(roundId: string) {
+    deleteRole(RoleId: string) {
       axios
-        .delete(roundApi.deleteRound(roundId))
+        .delete(roleApi.deleteRole(RoleId))
         .then((res) => {
-          this.getRounds();
+          this.getRoles();
           this.tableData = res.data;
         })
         .catch((err) => {
@@ -73,7 +86,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
   },
   created() {
-    this.getRounds();
+    this.getRoles();
   },
   data() {
     return {
@@ -82,15 +95,20 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     };
   },
 })
-export default class Home extends Vue {
-  rounds?: Array<any>;
+export default class Role extends Vue {
   handleTabClick: any;
-  roundId: any;
+  roleIds: any;
   tableData:
     | Array<{ description: string; name: string; id: string }>
     | undefined;
-  deleteRound: any;
-  rooms: Array<{ name: string; id: string; description: string }> = [];
+  deleteRole: any;
+  roles: Array<{ name: string; id: string; description: string }> = [];
+  visibleEditRole = false;
+  roleDetail: { id: string; name: string; description: string } = {
+    name: "",
+    description: "",
+    id: "",
+  };
 }
 </script>
 
@@ -103,7 +121,7 @@ export default class Home extends Vue {
   margin: 10px;
   text-align: center;
   border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+  background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
 }
 </style>

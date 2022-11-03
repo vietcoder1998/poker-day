@@ -2,10 +2,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import RoomView from "../views/RoomView.vue";
 import RoomDetailView from "../views/RoomDetailView.vue";
+import PermissionView from "../views/PermissionView.vue";
 import AddRoom from "../views/AddRoom.vue";
 import AddRound from "../views/AddRound.vue";
 import Users from "../views/Users.vue";
 import RoundView from "../views/RoundView.vue";
+import RoleView from "../views/RoleView.vue";
 import AddUser from "../views/AddUser.vue";
 
 const routes: Array<RouteRecordRaw> = [
@@ -38,6 +40,16 @@ const routes: Array<RouteRecordRaw> = [
     path: "/round",
     name: "round",
     component: RoundView,
+  },
+  {
+    path: "/role",
+    name: "role",
+    component: RoleView,
+  },
+  {
+    path: "/permission",
+    name: "permissions",
+    component: PermissionView,
   },
   {
     path: "/add-round",

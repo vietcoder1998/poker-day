@@ -12,7 +12,7 @@
       </el-button>
     </el-row>
     <!-- Add User -->
-    <el-dialog v-model="dialogVisible" title="Thêm người dùng" width="30%">
+    <el-dialog v-model="dialogVisible" title="Thêm người dùng">
       <!-- User info -->
       <el-row :gutter="20">
         <el-col :span="8">

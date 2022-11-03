@@ -57,23 +57,23 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import axios from "axios";
-import roomApi from "@/configs/roomApi";
+import permissionApi from "@/configs/permissionApi";
 import roundApi from "@/configs/roundApi";
 
 @Options({
-  name: "AddRoom",
+  name: "AddPermission",
   methods: {
     resetForm(form: any) {
       form.reset();
     },
     submitForm() {
       axios
-        .post(roomApi.addRoom, this.ruleForm)
+        .post(permissionApi.addPermission, this.ruleForm)
         .then((res) => {
-          this.rooms = res.data;
+          this.permissions = res.data;
           alert(JSON.stringify(res.data));
           console.log("success");
-          this.$router.push(`/room/${res.data.data.id}`);
+          this.$router.push(`/permission/${res.data.data.id}`);
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -103,7 +103,7 @@ import roundApi from "@/configs/roundApi";
     };
   },
 })
-export default class AddRoom extends Vue {
+export default class AddPermission extends Vue {
   tableData: Array<{ date: string; name: string; state: string }> | undefined;
   ruleForm: any;
   resetForm: any;
