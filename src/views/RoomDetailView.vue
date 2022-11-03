@@ -86,7 +86,7 @@
           <!-- Delete  -->
           <el-popconfirm
             title="Are you sure to delete this?"
-            @confirm="() => deleteGame(scope.row._id)"
+            @confirm="() => deleteGameInRoom(scope.row._id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
@@ -153,7 +153,6 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       axios
         .post(gameApi.updateGameResult(gameId), { callNumber, inventory })
         .then((res) => {
-          console.log(JSON.stringify(res));
           alert(JSON.stringify(res.data));
           this.getRoomDetail();
         })
@@ -173,7 +172,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteGame(gameId: string) {
+    deleteGameInRoom(gameId: string) {
       axios
         .delete(gameApi.deleteGame(gameId))
         .then((res) => {
@@ -199,7 +198,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         .post(roomApi.addGameToRoom(this.roomId, this.newUser.id))
         .then((res) => {
           this.dialogVisible = false;
-          console.log(JSON.stringify(res.data));
+          alert(JSON.stringify(res.data));
           this.getRoomDetail();
         })
         .catch((err) => {
@@ -218,5 +217,6 @@ export default class RoomDetailView extends Vue {
   deleteGame: any;
   roomDetail: any;
   games: any;
+  deleteGameInRoom: any;
 }
 </script>

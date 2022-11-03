@@ -1,5 +1,6 @@
 <template>
   <center-layout>
+    <el-header>Add Room</el-header>
     <AddRoom></AddRoom>
   </center-layout>
 </template>

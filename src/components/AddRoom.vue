@@ -7,7 +7,12 @@
     class="demo-ruleForm"
   >
     <el-form-item label="Name" prop="pass">
-      <el-input v-model="ruleForm.name" type="text" autocomplete="off" />
+      <el-input
+        v-model="ruleForm.name"
+        type="text"
+        autocomplete="on"
+        required
+      />
     </el-form-item>
     <el-form-item label="Description" prop="checkPass">
       <el-input
@@ -85,6 +90,9 @@ import roundApi from "@/configs/roundApi";
     },
   },
   created() {
+    if (this.$route.query.roundId) {
+      this.ruleForm.roundId = this.$route.query.roundId;
+    }
     this.getRoundList();
   },
   data() {

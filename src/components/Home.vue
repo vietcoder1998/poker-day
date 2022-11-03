@@ -3,13 +3,22 @@
     <el-header>Home</el-header>
     <el-row v-for="{ rooms, name, id } in rounds" :key="id" class="home">
       <el-divider>{{ name }}</el-divider>
+      <el-col :span="24" :style="{ textAlign: 'left' }">
+        <el-button
+          type="primary"
+          @click="$router.push(`/add-room?roundId=${id}`)"
+        >
+          <el-icon><Plus /></el-icon>
+          Add Room</el-button
+        >
+      </el-col>
       <el-col
         v-for="room in rooms"
-        :span="6"
+        :span="8"
         :sm="12"
         :xs="24"
-        :lg="6"
-        :md="8"
+        :lg="8"
+        :md="12"
         :key="room?.id"
         :body-style="{ padding: '10px' }"
       >
