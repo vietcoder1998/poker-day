@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="Edit Room" width="30%">
+  <el-dialog v-model="dialogVisible" title="Edit Room">
     <el-form
       ref="roomDetailRef"
       :model="roomDetail"

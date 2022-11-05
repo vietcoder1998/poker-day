@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="Edit Role" width="30%">
+  <el-dialog v-model="dialogVisible" title="Edit Role">
     <el-form
       ref="roleDetailRef"
       :model="roleDetail"

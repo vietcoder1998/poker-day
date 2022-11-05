@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="Edit Permission" width="30%">
+  <el-dialog v-model="dialogVisible" title="Edit Permission">
     <el-form
       ref="permissionDetailRef"
       :model="permissionDetail"

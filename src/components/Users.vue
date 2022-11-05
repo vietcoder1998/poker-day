@@ -5,7 +5,6 @@
       <el-button type="primary" href="/add-user"> Add User </el-button>
       <el-table :data="tableData" max-height="500">
         <el-table-column prop="name" label="Name" />
-        <el-table-column prop="username" label="Name" />
         <el-table-column prop="description" label="Description" />
         <el-table-column fixed="right" label="Operation">
           <template #default="scope">

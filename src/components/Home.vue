@@ -87,8 +87,7 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
   },
   created() {
     // this.getRooms();
-    this.getRounds();
-    this.getStatistic();
+    this.getRounds().then(() => this.getStatistic());
   },
   watch: {
     statistics: {
