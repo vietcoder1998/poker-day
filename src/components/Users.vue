@@ -7,7 +7,7 @@
         <el-table-column prop="name" label="Name" />
         <el-table-column prop="username" label="Name" />
         <el-table-column prop="description" label="Description" />
-        <el-table-column fixed="right" label="Operation" width="150">
+        <el-table-column fixed="right" label="Operation">
           <template #default="scope">
             <el-button link type="primary">Edit</el-button>
             <el-popconfirm

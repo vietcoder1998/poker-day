@@ -74,7 +74,7 @@
           }}</label>
         </template>
       </el-table-column>
-      <el-table-column label="Operation" width="200" fixed="right">
+      <el-table-column label="Operation" fixed="right">
         <template #default="scope">
           <el-button
             link

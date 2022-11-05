@@ -1,42 +1,39 @@
 <template>
-  <nav>
-    <el-row>
-      <el-page-header @back="onBack">
-        <template #breadcrumb>
-          <el-breadcrumb :separator-icon="ArrowRight">
-            <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/room' }"
-              >Room</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/round' }"
-              >Round</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/role' }"
-              >Role</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/users' }"
-              >Users</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/add-round' }"
-              >Add Round</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/add-user' }"
-              >Add User</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/add-room' }"
-              >Add Room</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/add-role' }"
-              >Add Role</el-breadcrumb-item
-            >
-            <el-breadcrumb-item :to="{ path: '/about' }"
-              >About</el-breadcrumb-item
-            >
-          </el-breadcrumb>
-        </template>
-      </el-page-header>
-    </el-row>
-  </nav>
+  <el-row>
+    <el-page-header @back="onBack">
+      <template #breadcrumb>
+        <el-breadcrumb :separator-icon="ArrowRight">
+          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/room' }">Room</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/round' }"
+            >Round</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/role' }">Role</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/users' }"
+            >Users</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/permission' }"
+            >Permission</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/add-round' }"
+            >Add Round</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/add-user' }"
+            >Add User</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/add-room' }"
+            >Add Room</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/add-role' }"
+            >Add Role</el-breadcrumb-item
+          >
+          <el-breadcrumb-item :to="{ path: '/about' }"
+            >About</el-breadcrumb-item
+          >
+        </el-breadcrumb>
+      </template>
+    </el-page-header>
+  </el-row>
   <router-view />
 </template>
 <script>
