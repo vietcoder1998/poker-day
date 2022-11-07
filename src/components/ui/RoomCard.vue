@@ -9,32 +9,31 @@
           icon-color="#626AEF"
           title="Are you sure to delete this?"
           width="200px"
-          @confirm="() => deleteRoom(tableItem.id)"
+          @confirm="() => deleteRoom(tableItem._id)"
         >
           <template #reference>
             <el-link type="danger"> Delete </el-link>
           </template>
         </el-popconfirm>
-        <el-link :href="`/room/${tableItem.id}`" target="_blank" type="success">
-          Go
-        </el-link>
+        <el-link :href="`/room/${tableItem._id}`" type="success"> Go </el-link>
       </div>
     </template>
     <div style="text-align: left">
-      <div>8 people</div>
-      <div>8/11/2022</div>
-      <div>Description</div>
+      <div>
+        <b>{{ tableItem.round.name }} </b>
+      </div>
+      <div>{{ tableItem.createdAt }}</div>
+      <div>{{ tableItem.description }}</div>
     </div>
   </el-card>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
 @Options({
-  name: "Room",
+  name: "RoomCard",
   props: {
     tableItem: {
       type: Object,
@@ -46,9 +45,9 @@ import roomApi from "@/configs/roomApi";
     },
   },
   methods: {
-    deleteRoom(id: string) {
-      axios
-        .delete(roomApi.deleteRoom(this.tableItem.id))
+    deleteRoom(roomId) {
+      this.httpRequest
+        .delete(roomApi.deleteRoom(roomId))
         .then((res) => {
           if (res.data) {
             alert(JSON.stringify(res.data));
@@ -83,7 +82,6 @@ export default class Room extends Vue {
 }
 
 .box-card {
-  margin: 10px;
   width: calc(100%-20px);
 }
 </style>

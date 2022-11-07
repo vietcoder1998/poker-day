@@ -56,23 +56,23 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import roomApi from "@/configs/roomApi";
+import roleApi from "@/configs/roleApi";
 import roundApi from "@/configs/roundApi";
 
 @Options({
-  name: "AddRoom",
+  name: "AddRole",
   methods: {
     resetForm(form: any) {
       form.reset();
     },
     submitForm() {
       this.httpRequest
-        .post(roomApi.addRoom, this.ruleForm)
+        .post(roleApi.addRole, this.ruleForm)
         .then((res) => {
-          this.rooms = res.data;
+          this.roles = res.data;
           alert(JSON.stringify(res.data));
           console.log("success");
-          this.$router.push(`/room/${res.data.data.id}`);
+          this.$router.push(`/role/${res.data.data.id}`);
         })
         .catch((err) => {
           alert(JSON.stringify(err));
@@ -102,7 +102,7 @@ import roundApi from "@/configs/roundApi";
     };
   },
 })
-export default class AddRoom extends Vue {
+export default class AddRole extends Vue {
   tableData: Array<{ date: string; name: string; state: string }> | undefined;
   ruleForm: any;
   resetForm: any;

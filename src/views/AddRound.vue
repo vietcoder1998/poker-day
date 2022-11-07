@@ -7,7 +7,6 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 import AddRound from "@/components/AddRound.vue";
 
@@ -20,8 +19,8 @@ import AddRound from "@/components/AddRound.vue";
     resetForm(form: any) {
       form.reset();
     },
-    submitForm(form: any) {
-      axios
+    submitForm() {
+      this.httpRequest
         .post(roomApi.addRoom, this.ruleForm)
         .then((res) => {
           this.rooms = res.data;

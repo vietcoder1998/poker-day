@@ -6,9 +6,12 @@
     label-width="120px"
     class="demo-ruleForm"
   >
-    <el-header>Add Round</el-header>
+    <el-header>AddUser</el-header>
     <el-form-item label="Name" prop="name">
       <el-input v-model="ruleForm.name" type="text" autocomplete="off" />
+    </el-form-item>
+    <el-form-item label="Username" prop="name">
+      <el-input v-model="ruleForm.username" type="text" autocomplete="off" />
     </el-form-item>
     <el-form-item label="Description" prop="description">
       <el-input
@@ -27,7 +30,7 @@
 </template>
 
 <script>
-import roundApi from "@/configs/roundApi";
+import userApi from "@/configs/userApi";
 import { Vue, Options } from "vue-class-component";
 
 @Options({
@@ -35,7 +38,7 @@ import { Vue, Options } from "vue-class-component";
   methods: {
     submitForm() {
       this.httpRequest
-        .post(roundApi.addRound, this.ruleForm)
+        .post(userApi.addUser, this.ruleForm)
         .then((data) => {
           alert(JSON.stringify(data));
           this.$router.go(-1);
@@ -48,6 +51,7 @@ import { Vue, Options } from "vue-class-component";
     resetForm() {
       this.ruleForm = {
         name: "",
+        username: "",
         description: "",
       };
     },

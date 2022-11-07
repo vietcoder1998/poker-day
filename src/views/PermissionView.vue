@@ -1,27 +1,22 @@
 <template>
   <center-layout>
-    <Round></Round>
+    <Permission></Permission>
   </center-layout>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
-import Round from "@/components/Round.vue";
+import Permission from "@/components/Permission.vue";
 
 @Options({
-  name: "RoundView",
+  name: "PermissionView",
   components: {
     CenterLayout,
-    Round,
-  },
-  methods: {
-    deleteRow() {
-      return;
-    },
+    Permission,
   },
 })
-export default class RoundView extends Vue {
+export default class PermissionView extends Vue {
   tableData: unknown;
   deleteRow(event: any) {
     console.log("Event: " + event);

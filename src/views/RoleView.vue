@@ -1,27 +1,22 @@
 <template>
   <center-layout>
-    <Round></Round>
+    <Role></Role>
   </center-layout>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
-import Round from "@/components/Round.vue";
+import Role from "@/components/Role.vue";
 
 @Options({
-  name: "RoundView",
+  name: "RoleView",
   components: {
     CenterLayout,
-    Round,
-  },
-  methods: {
-    deleteRow() {
-      return;
-    },
+    Role,
   },
 })
-export default class RoundView extends Vue {
+export default class RoleView extends Vue {
   tableData: unknown;
   deleteRow(event: any) {
     console.log("Event: " + event);

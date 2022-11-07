@@ -6,16 +6,12 @@
     label-width="120px"
     class="demo-ruleForm"
   >
-    <el-header>Add Round</el-header>
-    <el-form-item label="Name" prop="name">
-      <el-input v-model="ruleForm.name" type="text" autocomplete="off" />
+    <el-header>Login</el-header>
+    <el-form-item label="Username" prop="username">
+      <el-input type="text" autocomplete="on" v-model="ruleForm.username" />
     </el-form-item>
-    <el-form-item label="Description" prop="description">
-      <el-input
-        v-model="ruleForm.description"
-        type="textarea"
-        autocomplete="off"
-      />
+    <el-form-item label="Password" prop="password">
+      <el-input type="password" v-model="ruleForm.password" autocomplete="on" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm(ruleFormRef)"
@@ -27,18 +23,20 @@
 </template>
 
 <script>
-import roundApi from "@/configs/roundApi";
+import authenticateApi from "@/configs/authenticateApi";
 import { Vue, Options } from "vue-class-component";
 
 @Options({
-  name: "AddRound",
+  name: "Login",
   methods: {
     submitForm() {
       this.httpRequest
-        .post(roundApi.addRound, this.ruleForm)
-        .then((data) => {
-          alert(JSON.stringify(data));
-          this.$router.go(-1);
+        .post(authenticateApi.login, this.ruleForm)
+        .then((res) => {
+          const { token, username } = res.data.data;
+          this.setAuthenticate(token, username);
+          alert(JSON.stringify(res));
+          this.$router.go("/");
         })
         .catch((err) => alert(err))
         .finally(() => {
@@ -47,16 +45,16 @@ import { Vue, Options } from "vue-class-component";
     },
     resetForm() {
       this.ruleForm = {
-        name: "",
-        description: "",
+        username: "",
+        password: "",
       };
     },
   },
   data() {
     return {
       ruleForm: {
-        name: "",
-        description: "",
+        username: "",
+        password: "",
       },
     };
   },

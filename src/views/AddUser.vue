@@ -1,21 +1,21 @@
 <template>
   <center-layout>
-    <el-header>Add Room</el-header>
-    <AddRoom></AddRoom>
+    <AddUser></AddUser>
   </center-layout>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import AddRoom from "@/components/AddRoom.vue";
+import AddUser from "@/components/AddUser.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
 
 @Options({
-  name: "AddRoomPage",
   components: {
-    AddRoom,
+    AddUser,
     CenterLayout,
   },
+
+  name: "AddUserPage",
 })
 export default class AddRoomClass extends Vue {
   tableData: Array<{ date: string; name: string; state: string }> | undefined;

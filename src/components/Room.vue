@@ -1,16 +1,35 @@
 <template>
   <el-row>
-    <el-header> Round </el-header>
+    <el-header> Role </el-header>
+    <RoomEditModal
+      :dialogVisible="visibleEditRoom"
+      :roomDetail="roomDetail"
+      @close="visibleEditRoom = false"
+    ></RoomEditModal>
     <el-table :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="description" label="Description" />
-      <el-table-column fixed="right" label="Operation">
+      <el-table-column fixed="right" label="Operation" width="200">
         <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
+          <el-button
+            link
+            type="primary"
+            @click="
+              roomDetail = scope.row;
+              visibleEditRoom = true;
+            "
+            >Edit</el-button
+          >
+          <el-button
+            link
+            type="success"
+            @click="() => $router.push(`/role/${scope.row.id}`)"
+            >Go</el-button
+          >
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
-            @confirm="() => deleteRound(scope.row.id)"
+            @confirm="() => deleteRoom(scope.row.id)"
           >
             <template #reference>
               <el-button link type="danger">Delete</el-button>
@@ -23,25 +42,25 @@
 </template>
 
 <script lang="ts">
-import roundApi from "@/configs/roundApi";
+import roomApi from "@/configs/roomApi";
 import userApi from "@/configs/userApi";
-import AddRound from "@/components/AddRound.vue";
+import AddRoom from "@/components/AddRoom.vue";
 import { Vue, Options } from "vue-class-component";
-import Room from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import RoomEditModal from "@/components/room/RoomEditModal.vue";
 
 @Options({
-  name: "Round",
+  name: "RoomView",
   computed: {},
   components: {
-    AddRound,
-    Room,
+    AddRoom,
     CenterLayout,
+    RoomEditModal,
   },
   methods: {
-    getRounds() {
+    getRooms() {
       this.httpRequest
-        .get(roundApi.getRoundAll)
+        .get(roomApi.getRoomAll)
         .then((res) => {
           this.tableData = res.data;
         })
@@ -49,11 +68,11 @@ import CenterLayout from "@/layout/CenterLayout.vue";
           alert(JSON.stringify(err));
         });
     },
-    deleteRound(roundId: string) {
+    deleteRoom(RoomId: string) {
       this.httpRequest
-        .delete(roundApi.deleteRound(roundId))
+        .delete(roomApi.deleteRoom(RoomId))
         .then((res) => {
-          this.getRounds();
+          this.getRooms();
           this.tableData = res.data;
         })
         .catch((err) => {
@@ -72,7 +91,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
   },
   created() {
-    this.getRounds();
+    this.getRooms();
   },
   data() {
     return {
@@ -81,15 +100,21 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     };
   },
 })
-export default class Home extends Vue {
-  rounds?: Array<any>;
+export default class Role extends Vue {
+  Rooms?: Array<any>;
   handleTabClick: any;
-  roundId: any;
+  RoomId: any;
   tableData:
     | Array<{ description: string; name: string; id: string }>
     | undefined;
-  deleteRound: any;
+  deleteRoom: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
+  visibleEditRoom = false;
+  roomDetail: { id: string; name: string; description: string } = {
+    name: "",
+    description: "",
+    id: "",
+  };
 }
 </script>
 
@@ -102,7 +127,7 @@ export default class Home extends Vue {
   margin: 10px;
   text-align: center;
   border-radius: 4px;
-  background: var(--el-color-primary-light-9);
+  background-color: var(--el-color-primary-light-9);
   color: var(--el-color-primary);
 }
 </style>
