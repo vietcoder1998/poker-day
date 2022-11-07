@@ -1,14 +1,14 @@
 <template>
   <el-row>
-    <el-header> Room </el-header>
+    <el-header> Role </el-header>
     <RoomEditModal
       :dialogVisible="visibleEditRoom"
       :roomDetail="roomDetail"
       @close="visibleEditRoom = false"
     ></RoomEditModal>
     <el-table :data="tableData" max-height="500">
-      <el-table-column prop="name" label="Name" width="250" />
-      <el-table-column prop="description" label="Description" width="250" />
+      <el-table-column prop="name" label="Name" />
+      <el-table-column prop="description" label="Description" />
       <el-table-column fixed="right" label="Operation" width="200">
         <template #default="scope">
           <el-button
@@ -23,7 +23,7 @@
           <el-button
             link
             type="success"
-            @click="() => $router.push(`/room/${scope.row.id}`)"
+            @click="() => $router.push(`/role/${scope.row.id}`)"
             >Go</el-button
           >
           <el-popconfirm
@@ -101,7 +101,7 @@ import RoomEditModal from "@/components/room/RoomEditModal.vue";
     };
   },
 })
-export default class Room extends Vue {
+export default class Role extends Vue {
   Rooms?: Array<any>;
   handleTabClick: any;
   RoomId: any;

@@ -39,5 +39,32 @@ export default defineComponent({
     alertInfo(description: string, title?: string) {
       this.openAlert("info", title ?? "", description);
     },
+    setAuthenticate(token: string, username: string) {
+      localStorage.setItem("pd_token", token);
+      localStorage.setItem("pd_username", username);
+    },
+  },
+  computed: {
+    token() {
+      return localStorage.getItem("pd_token");
+    },
+    isAuthenticated() {
+      const token = localStorage.getItem("pd_username");
+
+      if (token) {
+        return true;
+      }
+
+      return false;
+    },
+    authenticateHeader() {
+      const token = localStorage.getItem("pd_token");
+      const username = localStorage.getItem("pd_username");
+
+      return {
+        "x-token": token,
+        "x-un": username,
+      };
+    },
   },
 });

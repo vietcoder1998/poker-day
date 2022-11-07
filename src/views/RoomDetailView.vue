@@ -12,7 +12,7 @@
       </el-button>
     </el-row>
     <!-- Add User -->
-    <el-dialog v-model="dialogVisible" title="Thêm người dùng" width="30%">
+    <el-dialog v-model="dialogVisible" title="Thêm người dùng">
       <!-- User info -->
       <el-row :gutter="20">
         <el-col :span="8">
@@ -46,8 +46,8 @@
     </el-dialog>
     <!-- Add User -->
     <el-table :data="games" max-height="500">
-      <el-table-column prop="name" label="Name" width="150" />
-      <el-table-column prop="callNumber" label="Call" width="200">
+      <el-table-column prop="name" label="Name" />
+      <el-table-column prop="callNumber" label="Call" width="175">
         <template #default="scope">
           <el-input-number
             v-model="scope.row.callNumber"
@@ -57,7 +57,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="inventory" label="Inventory" width="200">
+      <el-table-column prop="inventory" label="Inventory" width="175">
         <template #default="scope">
           <el-input-number
             v-model="scope.row.inventory"
@@ -67,14 +67,14 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="total" label="Total" width="200">
+      <el-table-column prop="total" label="Total">
         <template #default="scope">
           <label :style="{ color: scope.row.total < 0 ? 'red' : 'green' }">{{
             scope.row.total
           }}</label>
         </template>
       </el-table-column>
-      <el-table-column label="Operation" width="200" fixed="right">
+      <el-table-column label="Operation" fixed="right">
         <template #default="scope">
           <el-button
             link

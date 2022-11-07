@@ -1,15 +1,39 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/room">Room</router-link>|
-    <router-link to="/round">Round</router-link> |
-    <router-link to="/users">Users</router-link> |
-    <router-link to="/add-round">AddRound</router-link> |
-    <router-link to="/add-user">AddUser</router-link> |
-    <router-link to="/add-room">Add Room</router-link> |
-    <router-link to="/about">About</router-link>
-    <el-page-header @back="onBack"></el-page-header>
-  </nav>
+  <el-row>
+    <el-page-header @back="onBack" v-if="isAuthenticated">
+      <template #breadcrumb>
+        <el-breadcrumb :separator-icon="ArrowRight">
+          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/room' }">Room</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/round' }">
+            Round
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/role' }">Role</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/users' }">
+            Users
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/permission' }">
+            Permission
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/add-round' }">
+            Add Round
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/add-user' }">
+            Add User
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/add-room' }">
+            Add Room
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/add-role' }">
+            Add Role
+          </el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/about' }">
+            About
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+      </template>
+    </el-page-header>
+  </el-row>
   <router-view />
 </template>
 <script>
@@ -18,6 +42,11 @@ export default {
     onBack() {
       this.$router.go(-1);
     },
+  },
+  mounted() {
+    if (!this.isAuthenticated) {
+      this.$router.push("/login");
+    }
   },
 };
 </script>
@@ -33,6 +62,10 @@ export default {
 
 nav {
   padding: 30px;
+}
+
+.el-breadcrumb__item {
+  margin: 10px 0px;
 }
 
 nav a {

@@ -1,18 +1,22 @@
 <template>
-  <el-dialog v-model="dialogVisible" title="Edit Room">
+  <el-dialog v-model="dialogVisible" title="Edit Permission">
     <el-form
-      ref="roomDetailRef"
-      :model="roomDetail"
+      ref="permissionDetailRef"
+      :model="permissionDetail"
       status-icon
       label-width="120px"
-      class="demo-roomDetail"
+      class="demo-permissionDetail"
     >
       <el-form-item label="Name" prop="name">
-        <el-input v-model="roomDetail.name" type="text" autocomplete="off" />
+        <el-input
+          v-model="permissionDetail.name"
+          type="text"
+          autocomplete="off"
+        />
       </el-form-item>
       <el-form-item label="Description" prop="description">
         <el-input
-          v-model="roomDetail.description"
+          v-model="permissionDetail.description"
           type="textarea"
           autocomplete="off"
         />
@@ -30,22 +34,22 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import axios from "axios";
-import roomApi from "@/configs/roomApi";
+import permissionApi from "@/configs/permissionApi";
 
 @Options({
-  name: "RoomEditModal",
+  name: "PermissionEditModal",
   methods: {
     handleClose() {
       this.$emit("close");
     },
     submitEdit() {
-      this.onUpdateRoom();
+      this.onUpdatePermission();
       this.handleClose();
     },
-    onUpdateRoom() {
-      const room = this.roomDetail;
+    onUpdatePermission() {
+      const permission = this.permissionDetail;
       axios
-        .post(roomApi.editRoom(room.id), room)
+        .post(permissionApi.editPermission(permission.id), permission)
         .then((res) => {
           alert(JSON.stringify(res.data));
         })
@@ -55,7 +59,7 @@ import roomApi from "@/configs/roomApi";
     },
   },
   props: {
-    roomDetail: {
+    permissionDetail: {
       name: {
         type: String,
         required: true,
@@ -79,9 +83,9 @@ import roomApi from "@/configs/roomApi";
     },
   },
 })
-export default class RoomEditModal extends Vue {
+export default class PermissionEditModal extends Vue {
   handleClose: any;
-  roomDetail: any;
+  permissionDetail: any;
   submitEdit: any;
   dialogVisible: any;
 }

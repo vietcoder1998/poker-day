@@ -4,7 +4,7 @@
     <el-row
       v-for="{ rooms, name, id, statistic } in rounds"
       :key="id"
-      class="home"
+      :gutter="20"
     >
       <el-divider>{{ name }}</el-divider>
       <el-col v-if="statistic && statistic.length > 0" :span="24">
@@ -20,8 +20,11 @@
           @click="$router.push(`/add-room?roundId=${id}`)"
         >
           <el-icon><Plus /></el-icon>
-          Add Room</el-button
-        >
+          Add Room
+        </el-button>
+      </el-col>
+      <el-col v-if="statistic && statistic.length > 0" :span="24">
+        <UserDashBoard :statistic="statistic"></UserDashBoard>
       </el-col>
       <el-col
         v-for="room in rooms"
@@ -31,7 +34,6 @@
         :lg="8"
         :md="12"
         :key="room?.id"
-        :body-style="{ padding: '10px' }"
       >
         <RoomCard v-if="room" :tableItem="room"></RoomCard>
       </el-col>
@@ -66,7 +68,9 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
     },
     async getRounds() {
       axios
-        .get(roundApi.getRoundAll + "?withRoom=true")
+        .get(roundApi.getRoundAll + "?withRoom=true", {
+          headers: this.authenticateHeader,
+        })
         .then((res) => {
           this.rounds = res.data;
         })
@@ -84,9 +88,6 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
           alert(JSON.stringify(err));
         });
     },
-    mapStatisticGametoRound() {
-      console.log(this.rounds, this.statistic);
-    },
   },
   computed: {
     roundIds() {
@@ -95,15 +96,11 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
   },
   created() {
     // this.getRooms();
-    this.getRounds().then(() => {
-      this.getStatistic().then(() => {
-        this.mapStatisticGametoRound();
-      });
-    });
+    this.getRounds().then(() => this.getStatistic());
   },
   watch: {
     statistics: {
-      handler(nVal, oVal) {
+      handler(nVal) {
         this.rounds = this.rounds.map((round) => {
           const filterItem = nVal.filter((item) => item._id.round === round.id);
           round.statistic = filterItem;
@@ -136,6 +133,10 @@ export default class Home extends Vue {
 </script>
 
 <style scoped>
+.el-col {
+  margin-bottom: 10px;
+}
+
 .scrollbar-demo-item {
   display: flex;
   align-items: center;

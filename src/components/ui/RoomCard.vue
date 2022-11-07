@@ -83,7 +83,6 @@ export default class Room extends Vue {
 }
 
 .box-card {
-  margin: 10px;
   width: calc(100%-20px);
 }
 </style>
