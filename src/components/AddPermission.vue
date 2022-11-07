@@ -56,7 +56,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import permissionApi from "@/configs/permissionApi";
 import roundApi from "@/configs/roundApi";
 
@@ -67,7 +66,7 @@ import roundApi from "@/configs/roundApi";
       form.reset();
     },
     submitForm() {
-      axios
+      this.httpRequest
         .post(permissionApi.addPermission, this.ruleForm)
         .then((res) => {
           this.permissions = res.data;
@@ -80,7 +79,7 @@ import roundApi from "@/configs/roundApi";
         });
     },
     getRoundList() {
-      axios
+      this.httpRequest
         .get(roundApi.getRoundAll)
         .then((res) => {
           this.rounds = res.data;

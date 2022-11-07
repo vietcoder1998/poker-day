@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
 @Options({
@@ -44,7 +43,7 @@ import roomApi from "@/configs/roomApi";
     },
     onUpdateRoom() {
       const room = this.roomDetail;
-      axios
+      this.httpRequest
         .post(roomApi.editRoom(room.id), room)
         .then((res) => {
           alert(JSON.stringify(res.data));

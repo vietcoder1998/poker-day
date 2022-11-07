@@ -4,6 +4,7 @@
     border
     :style="{
       width: 500,
+      marginBottom: 10,
     }"
   >
     <el-table-column prop="name" label="Name">
@@ -26,16 +27,19 @@ import { Options, Vue } from "vue-class-component";
 @Options({
   name: "UserDashBoard",
   props: {
-    statistic: {
+    filter: {
       type: Array,
       default: () => [],
     },
   },
+  mounted() {
+    console.log(this.$props);
+  },
   computed: {
     dashboard() {
-      const statistic = this.statistic;
+      const statistics = this.filter;
 
-      return statistic.map((item) => ({
+      return statistics.map((item) => ({
         total: parseInt(item.totalScore),
         name: item._id.name,
       }));

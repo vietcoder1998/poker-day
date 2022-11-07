@@ -33,7 +33,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import permissionApi from "@/configs/permissionApi";
 
 @Options({
@@ -48,7 +47,7 @@ import permissionApi from "@/configs/permissionApi";
     },
     onUpdatePermission() {
       const permission = this.permissionDetail;
-      axios
+      this.httpRequest
         .post(permissionApi.editPermission(permission.id), permission)
         .then((res) => {
           alert(JSON.stringify(res.data));

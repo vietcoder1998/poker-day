@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import userApi from "@/configs/userApi";
 import { Vue, Options } from "vue-class-component";
 
@@ -38,7 +37,7 @@ import { Vue, Options } from "vue-class-component";
   name: "AddRound",
   methods: {
     submitForm() {
-      axios
+      this.httpRequest
         .post(userApi.addUser, this.ruleForm)
         .then((data) => {
           alert(JSON.stringify(data));

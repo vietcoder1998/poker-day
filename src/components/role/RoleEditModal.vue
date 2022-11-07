@@ -29,7 +29,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import roleApi from "@/configs/roleApi";
 
 @Options({
@@ -44,7 +43,7 @@ import roleApi from "@/configs/roleApi";
     },
     onUpdateRole() {
       const role = this.roleDetail;
-      axios
+      this.httpRequest
         .post(roleApi.editRole(role.id), role)
         .then((res) => {
           alert(JSON.stringify(res.data));

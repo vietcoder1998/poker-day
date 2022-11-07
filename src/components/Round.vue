@@ -23,7 +23,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import roundApi from "@/configs/roundApi";
 import userApi from "@/configs/userApi";
 import AddRound from "@/components/AddRound.vue";
@@ -41,7 +40,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   },
   methods: {
     getRounds() {
-      axios
+      this.httpRequest
         .get(roundApi.getRoundAll)
         .then((res) => {
           this.tableData = res.data;
@@ -51,7 +50,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     deleteRound(roundId: string) {
-      axios
+      this.httpRequest
         .delete(roundApi.deleteRound(roundId))
         .then((res) => {
           this.getRounds();
@@ -62,7 +61,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.users = res.data;

@@ -26,7 +26,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import userApi from "@/configs/userApi";
 import { Vue, Options } from "vue-class-component";
 import CenterLayout from "@/layout/CenterLayout.vue";
@@ -39,7 +38,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   },
   methods: {
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.tableData = res.data;
@@ -49,7 +48,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     deleteUser(userId: string) {
-      axios
+      this.httpRequest
         .delete(userApi.deleteUser(userId))
         .then((res) => {
           alert(JSON.stringify(res.data));

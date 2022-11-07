@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import roleApi from "@/configs/roleApi";
 import userApi from "@/configs/userApi";
 import AddRole from "@/components/AddRole.vue";
@@ -54,7 +53,7 @@ import RoleEditModal from "@/components/role/RoleEditModal.vue";
   },
   methods: {
     getRoles() {
-      axios
+      this.httpRequest
         .get(roleApi.getRoleAll)
         .then((res) => {
           this.tableData = res.data;
@@ -64,7 +63,7 @@ import RoleEditModal from "@/components/role/RoleEditModal.vue";
         });
     },
     deleteRole(RoleId: string) {
-      axios
+      this.httpRequest
         .delete(roleApi.deleteRole(RoleId))
         .then((res) => {
           this.getRoles();
@@ -75,7 +74,7 @@ import RoleEditModal from "@/components/role/RoleEditModal.vue";
         });
     },
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.users = res.data;
