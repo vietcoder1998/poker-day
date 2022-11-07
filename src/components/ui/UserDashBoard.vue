@@ -4,7 +4,6 @@
     border
     :style="{
       width: 500,
-      marginBottom: 10,
     }"
   >
     <el-table-column prop="name" label="Name">

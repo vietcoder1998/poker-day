@@ -7,7 +7,9 @@
       :gutter="20"
     >
       <el-divider>{{ name }}</el-divider>
-      <user-dash-board :filter="filter"></user-dash-board>
+      <el-col :span="24">
+        <user-dash-board :filter="filter"></user-dash-board>
+      </el-col>
       <el-col :span="24" :style="{ textAlign: 'left' }">
         <el-button
           type="primary"
@@ -16,9 +18,6 @@
           <el-icon><Plus /></el-icon>
           Add Room
         </el-button>
-      </el-col>
-      <el-col v-if="filter && filter.length > 0" :span="24">
-        <UserDashBoard :statistic="filter"></UserDashBoard>
       </el-col>
       <el-col
         v-for="room in rooms"
