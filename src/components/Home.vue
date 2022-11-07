@@ -42,7 +42,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
@@ -67,7 +66,7 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
       this.getRooms();
     },
     async getRounds() {
-      axios
+      this.httpRequest
         .get(roundApi.getRoundAll + "?withRoom=true", {
           headers: this.authenticateHeader,
         })
@@ -79,7 +78,7 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
         });
     },
     async getStatistic() {
-      axios
+      this.httpRequest
         .get(statisticApi.getStatistic)
         .then((res) => {
           this.statistics = res.data;

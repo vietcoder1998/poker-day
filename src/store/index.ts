@@ -1,5 +1,4 @@
 import { createStore } from "vuex";
-import { Room } from "../services/RoomService";
 
 export default createStore({
   state: {
@@ -13,7 +12,7 @@ export default createStore({
   },
   mutations: {
     GET_ROOM_ALL(state) {
-      return Room.getRoomAll().then((res: any) => (state.rooms = res.data));
+      return;
     },
   },
   modules: {},

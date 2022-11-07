@@ -1,3 +1,5 @@
+import { http } from "@/http-common";
+import { Axios } from "axios";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -57,14 +59,11 @@ export default defineComponent({
 
       return false;
     },
-    authenticateHeader() {
+    httpRequest(): Axios {
       const token = localStorage.getItem("pd_token");
       const username = localStorage.getItem("pd_username");
 
-      return {
-        "x-token": token,
-        "x-un": username,
-      };
+      return token ? http({ "x-token": token, "x-un": username }) : http();
     },
   },
 });
