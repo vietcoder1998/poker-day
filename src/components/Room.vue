@@ -42,7 +42,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 import userApi from "@/configs/userApi";
 import AddRoom from "@/components/AddRoom.vue";
@@ -60,7 +59,7 @@ import RoomEditModal from "@/components/room/RoomEditModal.vue";
   },
   methods: {
     getRooms() {
-      axios
+      this.httpRequest
         .get(roomApi.getRoomAll)
         .then((res) => {
           this.tableData = res.data;
@@ -70,7 +69,7 @@ import RoomEditModal from "@/components/room/RoomEditModal.vue";
         });
     },
     deleteRoom(RoomId: string) {
-      axios
+      this.httpRequest
         .delete(roomApi.deleteRoom(RoomId))
         .then((res) => {
           this.getRooms();
@@ -81,7 +80,7 @@ import RoomEditModal from "@/components/room/RoomEditModal.vue";
         });
     },
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.users = res.data;

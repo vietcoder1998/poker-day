@@ -1,19 +1,13 @@
 <template>
-  <CenterLayout>
-    <el-header>Home</el-header>
+  <el-header>Home</el-header>
+  <fragment>
     <el-row
-      v-for="{ rooms, name, id, statistic } in rounds"
+      v-for="{ rooms, name, id, filter } in viewItems"
       :key="id"
       :gutter="20"
     >
       <el-divider>{{ name }}</el-divider>
-      <el-col v-if="statistic && statistic.length > 0" :span="24">
-        <user-dash-board
-          v-for="(item, key) in statistic"
-          v-bind:key="['statistic', key].join('_')"
-          :data="item"
-        ></user-dash-board>
-      </el-col>
+      <user-dash-board :filter="filter"></user-dash-board>
       <el-col :span="24" :style="{ textAlign: 'left' }">
         <el-button
           type="primary"
@@ -22,9 +16,6 @@
           <el-icon><Plus /></el-icon>
           Add Room
         </el-button>
-      </el-col>
-      <el-col v-if="statistic && statistic.length > 0" :span="24">
-        <UserDashBoard :statistic="statistic"></UserDashBoard>
       </el-col>
       <el-col
         v-for="room in rooms"
@@ -38,16 +29,14 @@
         <RoomCard v-if="room" :tableItem="room"></RoomCard>
       </el-col>
     </el-row>
-  </CenterLayout>
+  </fragment>
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import type { TabsPaneContext } from "element-plus";
 import RoomCard from "@/components/ui/RoomCard.vue";
-import CenterLayout from "@/layout/CenterLayout.vue";
 import roundApi from "@/configs/roundApi";
 import statisticApi from "@/configs/statisticApi";
 import UserDashBoard from "@/components/ui/UserDashBoard.vue";
@@ -56,7 +45,6 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
   name: "Home",
   components: {
     AddRound,
-    CenterLayout,
     RoomCard,
     UserDashBoard,
   },
@@ -66,11 +54,9 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
       this.roundId = tab.props.name;
       this.getRooms();
     },
-    async getRounds() {
-      axios
-        .get(roundApi.getRoundAll + "?withRoom=true", {
-          headers: this.authenticateHeader,
-        })
+    getRounds() {
+      this.httpRequest
+        .get(roundApi.getRoundWithRoom)
         .then((res) => {
           this.rounds = res.data;
         })
@@ -78,8 +64,8 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
           alert(JSON.stringify(err));
         });
     },
-    async getStatistic() {
-      axios
+    getStatistic() {
+      this.httpRequest
         .get(statisticApi.getStatistic)
         .then((res) => {
           this.statistics = res.data;
@@ -90,32 +76,31 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
     },
   },
   computed: {
-    roundIds() {
-      return this.rounds.map((item) => item.id);
-    },
-  },
-  created() {
-    // this.getRooms();
-    this.getRounds().then(() => this.getStatistic());
-  },
-  watch: {
-    statistics: {
-      handler(nVal) {
-        this.rounds = this.rounds.map((round) => {
-          const filterItem = nVal.filter((item) => item._id.round === round.id);
-          round.statistic = filterItem;
+    viewItems() {
+      if (this.rounds.length > 0 && this.statistics.length > 0) {
+        return this.rounds?.map((round) => {
+          const filter = this.statistics?.filter(
+            (item) => item && item._id && item._id.round === round.id
+          );
+
+          console.log(filter);
+          round.filter = filter;
 
           return round;
         });
-      },
-      deep: true,
+      }
+
+      return [];
     },
+  },
+  async created() {
+    this.getStatistic();
+    this.getRounds();
   },
   data() {
     return {
       rounds: [],
       roundId: "add",
-      rooms: [],
       statistics: [],
     };
   },
@@ -128,7 +113,7 @@ export default class Home extends Vue {
     | Array<{ date: string; name: string; state: string; id: string }>
     | undefined;
   deleteRound: any;
-  rooms: Array<{ name: string; id: string; description: string }> = [];
+  viewItems: any;
 }
 </script>
 

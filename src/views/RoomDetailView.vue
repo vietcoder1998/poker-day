@@ -101,7 +101,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 import userApi from "@/configs/userApi";
 import gameApi from "@/configs/gameApi";
@@ -150,7 +149,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
       const { callNumber, inventory } = this.games.find(
         (item: any) => item._id === gameId
       );
-      axios
+      this.httpRequest
         .post(gameApi.updateGameResult(gameId), { callNumber, inventory })
         .then((res) => {
           alert(JSON.stringify(res.data));
@@ -162,7 +161,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     },
     getRoomDetail() {
       const { roomId } = this.$route.params;
-      axios
+      this.httpRequest
         .get(roomApi.getRoomDetail(roomId))
         .then((res) => {
           this.roomDetail = res.data;
@@ -173,7 +172,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     deleteGameInRoom(gameId: string) {
-      axios
+      this.httpRequest
         .delete(gameApi.deleteGame(gameId))
         .then((res) => {
           alert(JSON.stringify(res.data));
@@ -184,7 +183,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.users = res.data;
@@ -194,7 +193,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
         });
     },
     onAddGametoRoom() {
-      axios
+      this.httpRequest
         .post(roomApi.addGameToRoom(this.roomId, this.newUser.id))
         .then((res) => {
           this.dialogVisible = false;

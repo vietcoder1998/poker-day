@@ -36,7 +36,6 @@
 </template>
 
 <script lang="ts">
-import axios from "axios";
 import permissionApi from "@/configs/permissionApi";
 import userApi from "@/configs/userApi";
 import AddPermission from "@/components/AddPermission.vue";
@@ -54,7 +53,7 @@ import PermissionEditModal from "@/components/permission/PermissionEditModal.vue
   },
   methods: {
     getPermissions() {
-      axios
+      this.httpRequest
         .get(permissionApi.getPermissionAll)
         .then((res) => {
           this.tableData = res.data;
@@ -64,7 +63,7 @@ import PermissionEditModal from "@/components/permission/PermissionEditModal.vue
         });
     },
     deletePermission(PermissionId: string) {
-      axios
+      this.httpRequest
         .delete(permissionApi.deletePermission(PermissionId))
         .then((res) => {
           this.getPermissions();
@@ -75,7 +74,7 @@ import PermissionEditModal from "@/components/permission/PermissionEditModal.vue
         });
     },
     getUsers() {
-      axios
+      this.httpRequest
         .get(userApi.getUserAll)
         .then((res) => {
           this.users = res.data;

@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import authenticateApi from "@/configs/authenticateApi";
 import { Vue, Options } from "vue-class-component";
 
@@ -31,7 +30,7 @@ import { Vue, Options } from "vue-class-component";
   name: "Login",
   methods: {
     submitForm() {
-      axios
+      this.httpRequest
         .post(authenticateApi.login, this.ruleForm)
         .then((res) => {
           const { token, username } = res.data.data;

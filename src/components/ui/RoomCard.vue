@@ -30,7 +30,6 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import axios from "axios";
 import roomApi from "@/configs/roomApi";
 
 @Options({
@@ -47,7 +46,7 @@ import roomApi from "@/configs/roomApi";
   },
   methods: {
     deleteRoom(roomId) {
-      axios
+      this.httpRequest
         .delete(roomApi.deleteRoom(roomId))
         .then((res) => {
           if (res.data) {
