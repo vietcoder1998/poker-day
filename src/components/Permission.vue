@@ -6,7 +6,7 @@
       :permissionDetail="permissionDetail"
       @close="visibleEditPermission = false"
     ></PermissionEditModal>
-    <el-table :data="tableData" max-height="500">
+    <el-table :loading="false" :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="description" label="Description" />
       <el-table-column fixed="right" label="Operation">

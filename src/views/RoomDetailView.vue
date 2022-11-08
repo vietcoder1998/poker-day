@@ -45,7 +45,7 @@
       </template>
     </el-dialog>
     <!-- Add User -->
-    <el-table :data="games" max-height="500">
+    <el-table :loading="false" :data="games" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="callNumber" label="Call" width="175">
         <template #default="scope">

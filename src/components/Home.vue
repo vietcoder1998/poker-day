@@ -7,7 +7,9 @@
       :gutter="20"
     >
       <el-divider>{{ name }}</el-divider>
-      <user-dash-board :filter="filter"></user-dash-board>
+      <el-col :span="24">
+        <user-dash-board :filter="filter"></user-dash-board>
+      </el-col>
       <el-col :span="24" :style="{ textAlign: 'left' }">
         <el-button
           type="primary"

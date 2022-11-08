@@ -1,12 +1,25 @@
 <template>
   <el-row>
     <el-header> Round </el-header>
-    <el-table :data="tableData" max-height="500">
+    <RoundEditModal
+      :dialogVisible="visibleEditRound"
+      :roundDetail="roundDetail"
+      @close-round="visibleEditRound = false"
+    ></RoundEditModal>
+    <el-table :loading="false" :data="tableData" max-height="500">
       <el-table-column prop="name" label="Name" />
       <el-table-column prop="description" label="Description" />
       <el-table-column fixed="right" label="Operation">
         <template #default="scope">
-          <el-button link type="primary">Edit</el-button>
+          <el-button
+            type="primary"
+            link
+            @click="
+              roundDetail = scope.row;
+              visibleEditRound = true;
+            "
+            >Edit</el-button
+          >
           <el-popconfirm
             title="Are you sure to delete this?"
             :style="{ width: 250 }"
@@ -29,6 +42,7 @@ import AddRound from "@/components/AddRound.vue";
 import { Vue, Options } from "vue-class-component";
 import Room from "./ui/RoomCard.vue";
 import CenterLayout from "@/layout/CenterLayout.vue";
+import RoundEditModal from "./round/RoundEditModal.vue";
 
 @Options({
   name: "Round",
@@ -36,6 +50,7 @@ import CenterLayout from "@/layout/CenterLayout.vue";
   components: {
     AddRound,
     Room,
+    RoundEditModal,
     CenterLayout,
   },
   methods: {
@@ -78,6 +93,8 @@ import CenterLayout from "@/layout/CenterLayout.vue";
     return {
       tableData: [],
       users: [],
+      visibleEditRound: false,
+      roundDetail: {},
     };
   },
 })
@@ -90,6 +107,8 @@ export default class Home extends Vue {
     | undefined;
   deleteRound: any;
   rooms: Array<{ name: string; id: string; description: string }> = [];
+  visibleEditRound: any;
+  roundDetail: any;
 }
 </script>
 

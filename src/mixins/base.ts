@@ -62,8 +62,10 @@ export default defineComponent({
     httpRequest(): Axios {
       const token = localStorage.getItem("pd_token");
       const username = localStorage.getItem("pd_username");
-
-      return token ? http({ "x-token": token, "x-un": username }) : http();
+      const httpRequest = token
+        ? http({ "x-token": token, "x-un": username })
+        : http();
+      return httpRequest;
     },
   },
 });
