@@ -85,7 +85,6 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
             (item) => item && item._id && item._id.round === round.id
           );
 
-          console.log(filter);
           round.filter = filter;
 
           return round;

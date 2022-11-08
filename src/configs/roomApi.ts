@@ -1,4 +1,4 @@
-const baseApi = "http://localhost:8090/api";
+import { baseApi } from "../http-common";
 
 export default {
   getRoomAll: baseApi + `/room`,

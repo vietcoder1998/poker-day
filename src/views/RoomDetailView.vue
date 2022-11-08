@@ -16,7 +16,12 @@
       <!-- User info -->
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-select v-model="newUser.name" class="m-2" placeholder="Select">
+          <el-select
+            filterable
+            v-model="newUser.name"
+            class="m-2"
+            placeholder="Select"
+          >
             <el-option
               v-for="user in users"
               :key="user.id"
