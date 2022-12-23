@@ -1,0 +1,7 @@
+services:
+  frontend:
+    container_name: poker_app
+    build: 
+      dockerfile: Dockerfile
+    restart: always
+    
