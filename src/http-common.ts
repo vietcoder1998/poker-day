@@ -1,12 +1,18 @@
 /* eslint-disable */
 import axios from "axios";
 
-export const baseApi =  `http://174.129.71.31/api`;
-export const http = (headers?: any, api?: string) =>
-  axios.create({
-    baseURL: api ?? `http://localhost:${process.env.API_PORT}/api`,
-    headers: { ...headers, "Content-Type": "application/json" } ?? {
-      "Content-Type": "application/json"
-    }
-  });
-4
+export const baseApi = process.env.VUE_APP_API_URL;
+
+export const http = (headers?: any, api?: string) => {
+  console.log(baseApi)
+  try {
+    return axios.create({
+      baseURL: baseApi,
+      headers: { ...headers, "Content-Type": "application/json" } ?? {
+        "Content-Type": "application/json"
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};

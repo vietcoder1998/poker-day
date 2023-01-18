@@ -1,10 +1,11 @@
 <template>
-  <el-header>Home</el-header>
+  <el-header>WesternCard</el-header>
   <fragment>
     <el-row
       v-for="{ rooms, name, id, filter } in viewItems"
       :key="id"
-      :gutter="20"
+      :gutter="6"
+      style="height: 100vh; overflow-y: scroll"
     >
       <el-divider>{{ name }}</el-divider>
       <el-col :span="24">
@@ -24,7 +25,7 @@
         :span="8"
         :sm="12"
         :xs="24"
-        :lg="8"
+        :lg="12"
         :md="12"
         :key="room?.id"
       >
@@ -41,10 +42,10 @@ import type { TabsPaneContext } from "element-plus";
 import RoomCard from "@/components/ui/RoomCard.vue";
 import roundApi from "@/configs/roundApi";
 import statisticApi from "@/configs/statisticApi";
-import UserDashBoard from "@/components/ui/UserDashBoard.vue";
+import UserDashBoard from "@/components/poker-home/UserDashBoard.vue";
 
 @Options({
-  name: "Home",
+  name: "WesternCard",
   components: {
     AddRound,
     RoomCard,
@@ -106,7 +107,7 @@ import UserDashBoard from "@/components/ui/UserDashBoard.vue";
     };
   },
 })
-export default class Home extends Vue {
+export default class WesternCard extends Vue {
   rounds?: Array<any>;
   handleTabClick: any;
   roundId: any;

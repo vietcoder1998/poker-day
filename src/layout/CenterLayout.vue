@@ -6,11 +6,11 @@
       :type="type"
       @close="isClosed = true"
     ></CustomAlert>
-    <el-col :span="4" :xs="0"></el-col>
-    <el-col :span="16" :xs="24">
+    <el-col :span="1" :xs="1"></el-col>
+    <el-col :span="22" :xs="22">
       <slot></slot>
     </el-col>
-    <el-col :span="4" :xs="0"> </el-col>
+    <el-col :span="1" :xs="1"> </el-col>
   </el-row>
 </template>
 

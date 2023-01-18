@@ -1,21 +1,25 @@
 <template>
-  <el-card class="box-card">
+  <el-card
+    class="box-card"
+    draggable="true"
+    ondrop="onDrop"
+    ondragstart="onDrag"
+  >
     <template #header>
       <div class="card-header">
-        <span>{{ tableItem.name }}</span>
-        <el-popconfirm
-          confirm-button-text="OK"
-          cancel-button-text="No, Thanks"
-          icon-color="#626AEF"
-          title="Are you sure to delete this?"
-          width="200px"
-          @confirm="() => deleteRoom(tableItem._id)"
-        >
-          <template #reference>
-            <el-link type="danger"> Delete </el-link>
-          </template>
-        </el-popconfirm>
-        <el-link :href="`/room/${tableItem._id}`" type="success"> Go </el-link>
+        <div>
+          <el-checkbox
+            :id="tableItem._id"
+            @change="$emit('changeInput', $event, tableItem._id)"
+          >
+          </el-checkbox>
+          <label :for="tableItem._id">
+            {{ tableItem.name.toUpperCase() }}
+          </label>
+        </div>
+        <el-link :href="`/room/${tableItem._id}`" type="success" button>
+          Xem
+        </el-link>
       </div>
     </template>
     <div style="text-align: left">
@@ -29,8 +33,8 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
 import roomApi from "@/configs/roomApi";
+import { Options, Vue } from "vue-class-component";
 
 @Options({
   name: "RoomCard",
@@ -48,21 +52,21 @@ import roomApi from "@/configs/roomApi";
     deleteRoom(roomId) {
       this.httpRequest
         .delete(roomApi.deleteRoom(roomId))
-        .then((res) => {
-          if (res.data) {
-            alert(JSON.stringify(res.data));
-            this.$router.go(0);
-          }
-        })
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
+        .then((res) => this.dispatch(res.data));
+    },
+    onDrop(event) {
+      console.log(event);
+    },
+    onDrag(event) {
+      console.log(event);
     },
   },
 })
-export default class Room extends Vue {
+export default class RoomCard extends Vue {
   tableItem: any;
   deleteRoom: any;
+  onDrop: any;
+  onDrag: any;
 }
 </script>
 

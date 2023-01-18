@@ -7,6 +7,8 @@ export default {
   editRoom: (roomId: string) => baseApi + `/room/` + roomId,
   deleteRoom: (roomId: string) => baseApi + `/room/` + roomId,
   getRoomGame: (roomId: string) => baseApi + `/room/` + roomId,
+  updateManyGame: (roomId: string) => baseApi + `/room/` + roomId + "/games",
   addGameToRoom: (roomId: string, userId: string) =>
     baseApi + `/room/` + roomId + `/game/${userId}`,
+  addManyGameToRoom: (roomId: string) => baseApi + `/room/` + roomId + `/game`,
 };

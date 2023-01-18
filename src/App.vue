@@ -1,54 +1,29 @@
 <template>
   <el-row>
-    <el-page-header @back="onBack" v-if="isAuthenticated">
-      <template #breadcrumb>
-        <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/room' }">Room</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/round' }">
-            Round
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/role' }">Role</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/users' }">
-            Users
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/permission' }">
-            Permission
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/add-round' }">
-            Add Round
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/add-user' }">
-            Add User
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/add-room' }">
-            Add Room
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/add-role' }">
-            Add Role
-          </el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/about' }">
-            About
-          </el-breadcrumb-item>
-        </el-breadcrumb>
-      </template>
-    </el-page-header>
+    <el-col :md="3">
+      <SideBar></SideBar>
+    </el-col>
+    <el-col :md="21">
+      <router-view />
+    </el-col>
   </el-row>
-  <router-view />
 </template>
-<script>
-export default {
+<script lang="ts">
+import SideBar from "./layout/SideBar.vue";
+import { Options, Vue } from "vue-class-component";
+
+@Options({
+  name: "App",
+  components: {
+    SideBar,
+  },
   methods: {
     onBack() {
       this.$router.go(-1);
     },
   },
-  mounted() {
-    if (!this.isAuthenticated) {
-      this.$router.push("/login");
-    }
-  },
-};
+})
+export default class App extends Vue {}
 </script>
 
 <style>

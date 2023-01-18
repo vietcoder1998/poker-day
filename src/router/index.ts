@@ -1,15 +1,15 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import RoomView from "../views/RoomView.vue";
-import RoomDetailView from "../views/RoomDetailView.vue";
-import PermissionView from "../views/PermissionView.vue";
 import AddRoom from "../views/AddRoom.vue";
 import AddRound from "../views/AddRound.vue";
-import Users from "../views/Users.vue";
-import RoundView from "../views/RoundView.vue";
-import RoleView from "../views/RoleView.vue";
 import AddUser from "../views/AddUser.vue";
+import HomeView from "../views/HomeView.vue";
 import Login from "../views/Login.vue";
+import PermissionView from "../views/PermissionView.vue";
+import RoleView from "../views/RoleView.vue";
+import RoomDetail from "../views/room-detail/RoomDetail.vue";
+import RoomView from "../views/RoomView.vue";
+import RoundView from "../views/RoundView.vue";
+import Users from "../views/Users.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -30,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/room/:roomId",
     name: "room-detail",
-    component: RoomDetailView,
+    component: RoomDetail,
   },
   {
     path: "/add-room",

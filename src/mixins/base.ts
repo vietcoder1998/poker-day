@@ -12,6 +12,8 @@ export default defineComponent({
         description: "",
         type: "",
       },
+      isAuthenticated: false,
+      token: "",
     };
   },
   methods: {
@@ -45,21 +47,40 @@ export default defineComponent({
       localStorage.setItem("pd_token", token);
       localStorage.setItem("pd_username", username);
     },
+    checkAuthenticated() {
+      this.token = localStorage.getItem("pd_token") ?? "";
+      if (this.token !== "") {
+        if (this.$route.path.includes("/login")) {
+          this.$router.push("/");
+        }
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+        this.$router.push("/login");
+      }
+    },
+    logOut() {
+      localStorage.clear();
+      this.checkAuthenticated();
+    },
+    dispatch: async function (data) {
+      if (data) {
+        this.$notify({
+          title: "Success",
+          message: "Success on get data",
+          type: "success",
+        });
+      } else {
+        this.$notify({
+          title: "Error",
+          type: "error",
+          message: "None result",
+        });
+      }
+    },
   },
   computed: {
-    token() {
-      return localStorage.getItem("pd_token");
-    },
-    isAuthenticated() {
-      const token = localStorage.getItem("pd_username");
-
-      if (token) {
-        return true;
-      }
-
-      return false;
-    },
-    httpRequest(): Axios {
+    httpRequest(): Axios | undefined {
       const token = localStorage.getItem("pd_token");
       const username = localStorage.getItem("pd_username");
       const httpRequest = token
@@ -67,5 +88,8 @@ export default defineComponent({
         : http();
       return httpRequest;
     },
+  },
+  mounted() {
+    this.checkAuthenticated();
   },
 });

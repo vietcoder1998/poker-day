@@ -5,6 +5,7 @@ export default {
   getGameDetail: (gameId: string) => baseApi + `/game/` + gameId + `/games`,
   addGame: baseApi + `/game/create`,
   deleteGame: (gameId: string) => baseApi + `/game/` + gameId,
+  deleteManyRoom: () => baseApi + `/room`,
   getGameGame: (gameId: string) => baseApi + `/game/` + gameId,
   updateGameResult: (gameId: string) => baseApi + `/game/` + gameId,
   addGameToGame: (gameId: string, userId: string) =>

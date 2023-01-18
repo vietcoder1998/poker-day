@@ -21,7 +21,7 @@ import Users from "@/components/Users.vue";
     },
   },
 })
-export default class RoomDetailView extends Vue {
+export default class User extends Vue {
   tableData: unknown;
   deleteRow(event: any) {
     console.log("Event: " + event);
